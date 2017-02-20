@@ -163,3 +163,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+.idea/markdown-navigator/
+WebRoot/WEB-INF/classes/
+WebRoot/WEB-INF/lib/
+lib/
+src/tech/
