@@ -9,6 +9,6 @@
         <setting name="logImpl" value="LOG4J"/><!--增加mybatis日志-->
     </settings>
     <mappers>
-        <!--<mapper resource="com/liuwenjian/mappers/userMapper.xml" />-->
+        <!--<mapper resource="tech.jiangtao.backstage.mapper.UserMapper" />-->
     </mappers>
 </configuration>
