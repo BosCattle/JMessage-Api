@@ -1,7 +1,6 @@
 package tech.jiangtao.backstage.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +40,14 @@ public class UserController {
     return user;
   }
 
-  public User register(){
-    return null;
+
+  @RequestMapping(value="/register",method = RequestMethod.POST)
+  public User register(@RequestParam String nickname,@RequestParam String email,@RequestParam String password){
+    User user = new User();
+    user.setNickname(nickname);
+    user.setPassword(password);
+    user.setEmail(email);
+    userService.save(nickname,password,email);
+    return user;
   }
 }
