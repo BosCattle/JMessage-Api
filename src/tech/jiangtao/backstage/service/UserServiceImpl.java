@@ -19,7 +19,7 @@ import tech.jiangtao.backstage.model.User;
 public class UserServiceImpl implements UserService{
 
 
-  public UserMapper userMapper;
+  private UserMapper userMapper;
 
   @Autowired
   public void setUserMapper(UserMapper userMapper) {
