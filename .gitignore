@@ -167,3 +167,4 @@ fabric.properties
 WebRoot/WEB-INF/classes/
 WebRoot/WEB-INF/lib/
 lib/
+.idea/
