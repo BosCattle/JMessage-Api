@@ -27,15 +27,14 @@ public class UserController {
   public TigUsersService tigUsersService;
 
   /**
-   * 根据id查询用户
+   * 根据id查询用户的好友
+   * @param userId
+   * @return 返回用户的好友信息
+   * @throws Exception
    */
   @RequestMapping(value = "/queryUserList", method = RequestMethod.POST)
-  public @ResponseBody List<TigUsers> queryUserList(@RequestParam("userId") String userId) {
-    try {
-      return tigUsersService.queryUserList(userId);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return null;
+  public @ResponseBody List<TigUsers> queryUserList(@RequestParam("userId") String userId)
+      throws Exception {
+    return tigUsersService.queryUserList(userId);
   }
 }

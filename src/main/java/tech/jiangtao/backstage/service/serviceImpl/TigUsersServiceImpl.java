@@ -17,7 +17,7 @@ import tech.jiangtao.backstage.service.TigUsersService;
  * @version: 0.0.1 </br>
  **/
 
-@Service("tigUsersServiceImpl")
+@Service("tigUsersService")
 public class TigUsersServiceImpl implements TigUsersService {
 
   @Autowired

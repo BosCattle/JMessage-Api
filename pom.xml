@@ -5,7 +5,7 @@
     <artifactId>SpringMVC-Architecture</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SpringMVC-Architecture Maven Webapp</name>
+    <name>SpringMVC-Architecture</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -13,8 +13,6 @@
         <spring.version>4.3.6.RELEASE</spring.version>
         <jackson.core.version>2.7.3</jackson.core.version>
     </properties>
-
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -203,12 +201,6 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
-        <!-- freemarker模板引擎-->
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.23</version>
-        </dependency>
         <!-- 文件上传 -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -323,6 +315,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
         </dependency>
     </dependencies>
 
