@@ -22,6 +22,13 @@
   <!-- 使用注解的包，包括子集 -->
   <context:component-scan base-package="tech.jiangtao.backstage.controller" />
 
+  <!-- 配置视图解析器 要求将jstl的包加入classpath-->
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!-- 配置视图的前缀和后缀 -->
+    <property name="prefix" value="/WEB-INF/jsp/"/>
+    <property name="suffix" value=".jsp"/>
+  </bean>
+
   <!-- 配置文件上传组件 -->
   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <property name="defaultEncoding" value="utf-8"/>

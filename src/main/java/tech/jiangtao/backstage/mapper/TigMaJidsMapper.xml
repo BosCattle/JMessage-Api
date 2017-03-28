@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.jiangtao.backstage.mapper.TigMaJidsMapper" >
+  <resultMap id="BaseResultMap" type="tech.jiangtao.backstage.model.TigMaJids" >
+    <id column="jid_id" property="jidId" jdbcType="BIGINT" />
+    <result column="jid" property="jid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    jid_id, jid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="tech.jiangtao.backstage.model.TigMaJidsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tig_ma_jids
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tig_ma_jids
+    where jid_id = #{jidId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tig_ma_jids
+    where jid_id = #{jidId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="tech.jiangtao.backstage.model.TigMaJidsExample" >
+    delete from tig_ma_jids
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="tech.jiangtao.backstage.model.TigMaJids" >
+    insert into tig_ma_jids (jid_id, jid)
+    values (#{jidId,jdbcType=BIGINT}, #{jid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="tech.jiangtao.backstage.model.TigMaJids" >
+    insert into tig_ma_jids
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jidId != null" >
+        jid_id,
+      </if>
+      <if test="jid != null" >
+        jid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jidId != null" >
+        #{jidId,jdbcType=BIGINT},
+      </if>
+      <if test="jid != null" >
+        #{jid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="tech.jiangtao.backstage.model.TigMaJidsExample" resultType="java.lang.Integer" >
+    select count(*) from tig_ma_jids
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tig_ma_jids
+    <set >
+      <if test="record.jidId != null" >
+        jid_id = #{record.jidId,jdbcType=BIGINT},
+      </if>
+      <if test="record.jid != null" >
+        jid = #{record.jid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tig_ma_jids
+    set jid_id = #{record.jidId,jdbcType=BIGINT},
+      jid = #{record.jid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="tech.jiangtao.backstage.model.TigMaJids" >
+    update tig_ma_jids
+    <set >
+      <if test="jid != null" >
+        jid = #{jid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jid_id = #{jidId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="tech.jiangtao.backstage.model.TigMaJids" >
+    update tig_ma_jids
+    set jid = #{jid,jdbcType=VARCHAR}
+    where jid_id = #{jidId,jdbcType=BIGINT}
+  </update>
+</mapper>

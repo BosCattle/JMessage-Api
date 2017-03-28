@@ -4,14 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <settings>
-    <!-- setting name="cacheEnable" value="true"/-->
-    <setting name="useGeneratedKeys" value="false"/>
-    <setting name="logImpl" value="LOG4J"/><!--增加mybatis日志-->
+     <setting name="cacheEnabled" value="true"/>
   </settings>
   <typeAliases>
-    <typeAlias alias="User" type="tech.jiangtao.backstage.model.User"/>
+    <package name="tech.jiangtao.backstage.model"/>
   </typeAliases>
   <mappers>
-    <mapper resource="tech/jiangtao/backstage/mapper/UserMapper.xml"/>
+    <package name="tech.jiangtao.backstage.mapper"/>
   </mappers>
 </configuration>

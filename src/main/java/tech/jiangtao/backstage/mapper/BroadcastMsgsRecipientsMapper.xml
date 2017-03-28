@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.jiangtao.backstage.mapper.BroadcastMsgsRecipientsMapper" >
+  <resultMap id="BaseResultMap" type="tech.jiangtao.backstage.model.BroadcastMsgsRecipientsKey" >
+    <id column="msg_id" property="msgId" jdbcType="VARCHAR" />
+    <id column="jid_id" property="jidId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    msg_id, jid_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="tech.jiangtao.backstage.model.BroadcastMsgsRecipientsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from broadcast_msgs_recipients
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="tech.jiangtao.backstage.model.BroadcastMsgsRecipientsKey" >
+    delete from broadcast_msgs_recipients
+    where msg_id = #{msgId,jdbcType=VARCHAR}
+      and jid_id = #{jidId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="tech.jiangtao.backstage.model.BroadcastMsgsRecipientsExample" >
+    delete from broadcast_msgs_recipients
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="tech.jiangtao.backstage.model.BroadcastMsgsRecipientsKey" >
+    insert into broadcast_msgs_recipients (msg_id, jid_id)
+    values (#{msgId,jdbcType=VARCHAR}, #{jidId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="tech.jiangtao.backstage.model.BroadcastMsgsRecipientsKey" >
+    insert into broadcast_msgs_recipients
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        msg_id,
+      </if>
+      <if test="jidId != null" >
+        jid_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="jidId != null" >
+        #{jidId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="tech.jiangtao.backstage.model.BroadcastMsgsRecipientsExample" resultType="java.lang.Integer" >
+    select count(*) from broadcast_msgs_recipients
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update broadcast_msgs_recipients
+    <set >
+      <if test="record.msgId != null" >
+        msg_id = #{record.msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jidId != null" >
+        jid_id = #{record.jidId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update broadcast_msgs_recipients
+    set msg_id = #{record.msgId,jdbcType=VARCHAR},
+      jid_id = #{record.jidId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

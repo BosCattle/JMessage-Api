@@ -1,45 +1,61 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE generatorConfiguration PUBLIC
-    "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
 <generatorConfiguration>
-
-  <!-- !!!! Driver Class Path !!!! -->
-  <classPathEntry location=""/>
-
-  <context id="context" targetRuntime="MyBatis3">
+  <!--<properties resource="jdbc.properties"/>-->
+  <context id="testTables" targetRuntime="MyBatis3">
     <commentGenerator>
-      <property name="suppressAllComments" value="false"/>
-      <property name="suppressDate" value="true"/>
+      <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+      <property name="suppressAllComments" value="true" />
     </commentGenerator>
-
-    <!-- !!!! Database Configurations !!!! -->
-    <jdbcConnection driverClass="" connectionURL="" userId="" password=""/>
-
+    <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://139.162.78.252/tigasedb"
+                    userId="root"
+                    password="j3281033013991jX.">
+    </jdbcConnection>
+    <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+        NUMERIC 类型解析为java.math.BigDecimal -->
     <javaTypeResolver>
-      <property name="forceBigDecimals" value="false"/>
+      <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
 
-    <!-- !!!! Model Configurations !!!! -->
-    <javaModelGenerator targetPackage="" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
-      <property name="enableSubPackages" value="false"/>
-      <property name="trimStrings" value="true"/>
+    <!-- targetProject:生成PO类的位置 -->
+    <javaModelGenerator targetPackage="tech.jiangtao.backstage.model"
+                        targetProject="src/main/java">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false" />
+      <!-- 从数据库返回的值被清理前后的空格 -->
+      <property name="trimStrings" value="true" />
     </javaModelGenerator>
-
-    <!-- !!!! Mapper XML Configurations !!!! -->
-    <sqlMapGenerator targetPackage="" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
-      <property name="enableSubPackages" value="false"/>
+    <!-- targetProject:mapper映射文件生成的位置 -->
+    <sqlMapGenerator targetPackage="tech.jiangtao.backstage.mapper"
+                     targetProject="src/main/java">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false" />
     </sqlMapGenerator>
-
-    <!-- !!!! Mapper Interface Configurations !!!! -->
-    <javaClientGenerator targetPackage="" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED"
-        type="XMLMAPPER">
-      <property name="enableSubPackages" value="false"/>
+    <!-- targetPackage：mapper接口生成的位置 -->
+    <javaClientGenerator type="XMLMAPPER"
+                         targetPackage="tech.jiangtao.backstage.mapper"
+                         targetProject="src/main/java">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false" />
     </javaClientGenerator>
-
-    <!-- !!!! Table Configurations !!!! -->
-    <table tableName="" enableCountByExample="false" enableDeleteByExample="false"
-        enableSelectByExample="false"
-        enableUpdateByExample="false"/>
+    <!-- 指定数据库表 -->
+    <table tableName="broadcast_msgs"/>
+    <table tableName="broadcast_msgs_recipients"/>
+    <table tableName="msg_history"/>
+    <table tableName="short_news"/>
+    <table tableName="tig_ma_jids"/>
+    <table tableName="tig_ma_msgs"/>
+    <table tableName="tig_ma_msgs_tags"/>
+    <table tableName="tig_ma_tags"/>
+    <table tableName="tig_nodes"/>
+    <table tableName="tig_pairs"/>
+    <table tableName="tig_users"/>
+    <table tableName="user_jid"/>
+    <table tableName="xmpp_stanza"/>
   </context>
 </generatorConfiguration>

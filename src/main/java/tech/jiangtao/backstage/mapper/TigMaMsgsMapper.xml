@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.jiangtao.backstage.mapper.TigMaMsgsMapper" >
+  <resultMap id="BaseResultMap" type="tech.jiangtao.backstage.model.TigMaMsgs" >
+    <id column="msg_id" property="msgId" jdbcType="BIGINT" />
+    <result column="owner_id" property="ownerId" jdbcType="BIGINT" />
+    <result column="buddy_id" property="buddyId" jdbcType="BIGINT" />
+    <result column="ts" property="ts" jdbcType="TIMESTAMP" />
+    <result column="direction" property="direction" jdbcType="SMALLINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="tech.jiangtao.backstage.model.TigMaMsgsWithBLOBs" extends="BaseResultMap" >
+    <result column="body" property="body" jdbcType="LONGVARCHAR" />
+    <result column="msg" property="msg" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    msg_id, owner_id, buddy_id, ts, direction, type
+  </sql>
+  <sql id="Blob_Column_List" >
+    body, msg
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="tech.jiangtao.backstage.model.TigMaMsgsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tig_ma_msgs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="tech.jiangtao.backstage.model.TigMaMsgsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tig_ma_msgs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tig_ma_msgs
+    where msg_id = #{msgId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tig_ma_msgs
+    where msg_id = #{msgId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="tech.jiangtao.backstage.model.TigMaMsgsExample" >
+    delete from tig_ma_msgs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="tech.jiangtao.backstage.model.TigMaMsgsWithBLOBs" >
+    insert into tig_ma_msgs (msg_id, owner_id, buddy_id, 
+      ts, direction, type, 
+      body, msg)
+    values (#{msgId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{buddyId,jdbcType=BIGINT}, 
+      #{ts,jdbcType=TIMESTAMP}, #{direction,jdbcType=SMALLINT}, #{type,jdbcType=VARCHAR}, 
+      #{body,jdbcType=LONGVARCHAR}, #{msg,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="tech.jiangtao.backstage.model.TigMaMsgsWithBLOBs" >
+    insert into tig_ma_msgs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        msg_id,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="buddyId != null" >
+        buddy_id,
+      </if>
+      <if test="ts != null" >
+        ts,
+      </if>
+      <if test="direction != null" >
+        direction,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        #{msgId,jdbcType=BIGINT},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="buddyId != null" >
+        #{buddyId,jdbcType=BIGINT},
+      </if>
+      <if test="ts != null" >
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="direction != null" >
+        #{direction,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="tech.jiangtao.backstage.model.TigMaMsgsExample" resultType="java.lang.Integer" >
+    select count(*) from tig_ma_msgs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tig_ma_msgs
+    <set >
+      <if test="record.msgId != null" >
+        msg_id = #{record.msgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ownerId != null" >
+        owner_id = #{record.ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.buddyId != null" >
+        buddy_id = #{record.buddyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.ts != null" >
+        ts = #{record.ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.direction != null" >
+        direction = #{record.direction,jdbcType=SMALLINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.body != null" >
+        body = #{record.body,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.msg != null" >
+        msg = #{record.msg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tig_ma_msgs
+    set msg_id = #{record.msgId,jdbcType=BIGINT},
+      owner_id = #{record.ownerId,jdbcType=BIGINT},
+      buddy_id = #{record.buddyId,jdbcType=BIGINT},
+      ts = #{record.ts,jdbcType=TIMESTAMP},
+      direction = #{record.direction,jdbcType=SMALLINT},
+      type = #{record.type,jdbcType=VARCHAR},
+      body = #{record.body,jdbcType=LONGVARCHAR},
+      msg = #{record.msg,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tig_ma_msgs
+    set msg_id = #{record.msgId,jdbcType=BIGINT},
+      owner_id = #{record.ownerId,jdbcType=BIGINT},
+      buddy_id = #{record.buddyId,jdbcType=BIGINT},
+      ts = #{record.ts,jdbcType=TIMESTAMP},
+      direction = #{record.direction,jdbcType=SMALLINT},
+      type = #{record.type,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="tech.jiangtao.backstage.model.TigMaMsgsWithBLOBs" >
+    update tig_ma_msgs
+    <set >
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=BIGINT},
+      </if>
+      <if test="buddyId != null" >
+        buddy_id = #{buddyId,jdbcType=BIGINT},
+      </if>
+      <if test="ts != null" >
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="direction != null" >
+        direction = #{direction,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where msg_id = #{msgId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="tech.jiangtao.backstage.model.TigMaMsgsWithBLOBs" >
+    update tig_ma_msgs
+    set owner_id = #{ownerId,jdbcType=BIGINT},
+      buddy_id = #{buddyId,jdbcType=BIGINT},
+      ts = #{ts,jdbcType=TIMESTAMP},
+      direction = #{direction,jdbcType=SMALLINT},
+      type = #{type,jdbcType=VARCHAR},
+      body = #{body,jdbcType=LONGVARCHAR},
+      msg = #{msg,jdbcType=LONGVARCHAR}
+    where msg_id = #{msgId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="tech.jiangtao.backstage.model.TigMaMsgs" >
+    update tig_ma_msgs
+    set owner_id = #{ownerId,jdbcType=BIGINT},
+      buddy_id = #{buddyId,jdbcType=BIGINT},
+      ts = #{ts,jdbcType=TIMESTAMP},
+      direction = #{direction,jdbcType=SMALLINT},
+      type = #{type,jdbcType=VARCHAR}
+    where msg_id = #{msgId,jdbcType=BIGINT}
+  </update>
+</mapper>
