@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONObject;
 import org.json.XML;
-import org.leibnizcenter.xml.TerseJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.jiangtao.backstage.mapper.TigUsersCustomMapper;
@@ -26,9 +25,6 @@ import tech.jiangtao.backstage.service.TigUsersService;
 
 @Service("tigUsersService")
 public class TigUsersServiceImpl implements TigUsersService {
-
-  private static final TerseJson.WhitespaceBehaviour COMPACT_WHITE_SPACE =
-      TerseJson.WhitespaceBehaviour.Compact;
 
   @Autowired
   private TigUsersMapper tigUsersMapper;
@@ -56,7 +52,10 @@ public class TigUsersServiceImpl implements TigUsersService {
     TigUsersExample example = new TigUsersExample();
     TigUsersExample.Criteria criteriaexample = example.createCriteria().andUserIdEqualTo(userId);
     List<TigUsers> tigUserses = tigUsersMapper.selectByExample(example);
-    return tigUserses.get(0);
+    if (tigUserses!=null&&tigUserses.size()>0){
+      return tigUserses.get(0);
+    }
+    return null;
   }
 
   @Override public List<Friends> queryUserFriends(String userId) throws Exception {
