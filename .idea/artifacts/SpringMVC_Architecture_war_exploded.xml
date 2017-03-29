@@ -54,7 +54,6 @@
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-crypto-cipher:1.4.0-RC2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-config-core:1.4.0-RC2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-config-ogdl:1.4.0-RC2" />
-          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.9.3" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-event:1.4.0-RC2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.4.0-RC2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-spring:1.4.0-RC2" />
@@ -68,6 +67,10 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.5" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.5" />
           <element id="library" level="project" name="Maven: org.json:json:20160810" />
+          <element id="library" level="project" name="Maven: net.sf.json-lib:json-lib:2.4" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.0" />
+          <element id="library" level="project" name="Maven: org.leibnizcenter:xml-to-json:0.9.1" />
+          <element id="library" level="project" name="Maven: xerces:xercesImpl:2.4.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

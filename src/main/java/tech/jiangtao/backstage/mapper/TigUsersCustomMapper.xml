@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.jiangtao.backstage.mapper.TigUsersCustomMapper">
+
+  <!--查询我所有好友的jid和uid-->
+  <resultMap id="queryFriendsMap" type="tigUsersCustomVo">
+    <association property="tigUsers" javaType="tigUsers">
+      <id column="uid" property="uid"/>
+      <result column="user_id" property="userId"/>
+      <result column="online_status" property="onlineStatus"/>
+    </association>
+    <association property="tigUsersCustom" javaType="tigUsersCustom">
+      <result column="userID" property="uid"/>
+      <result column="pkey" property="pkey"/>
+      <result column="pval" property="pval"/>
+    </association>
+  </resultMap>
+  <select id="queryFriends" parameterType="java.lang.String" resultMap="queryFriendsMap">
+        SELECT tig_users.uid, tig_users.user_id, tig_users.online_status, tig_pairs.uid userID, tig_pairs.pval
+        FROM tig_users, tig_pairs
+        WHERE tig_users.uid = #{uid}
+          AND tig_pairs.pkey = 'roster'
+  </select>
+
+
+  <select id="queryFriendsResult" parameterType="java.util.List" resultMap="queryFriendsMap">
+        SELECT tig_users.user_id, tig_users.online_status, tig_pairs.pval
+        FROM tig_pairs, tig_users
+        WHERE pkey = 'vCard'
+        <foreach collection="list" close=")" open="  AND tig_pairs.uid IN (" separator="," item="item">
+          #{item}
+        </foreach>
+        AND tig_users.uid = tig_pairs.uid
+  </select>
+
+
+</mapper>

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jiangtao.backstage.model.TigUsers;
+import tech.jiangtao.backstage.model.TigUsersCustomVo;
+import tech.jiangtao.backstage.model.json.Friends;
 import tech.jiangtao.backstage.service.TigUsersService;
 
 /**
@@ -33,8 +35,13 @@ public class UserController {
    * @throws Exception
    */
   @RequestMapping(value = "/queryUserList", method = RequestMethod.POST)
-  public @ResponseBody List<TigUsers> queryUserList(@RequestParam("userId") String userId)
+  public @ResponseBody List<Friends> queryUserList(@RequestParam("userId") String userId)
       throws Exception {
-    return tigUsersService.queryUserList(userId);
+    return tigUsersService.queryUserFriends(userId);
+  }
+
+  @RequestMapping(value = "/queryUser",method = RequestMethod.POST)
+  public @ResponseBody TigUsers queryUser(String userId) throws Exception{
+    return tigUsersService.queryUser(userId);
   }
 }

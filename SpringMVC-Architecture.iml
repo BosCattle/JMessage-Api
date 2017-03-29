@@ -81,7 +81,6 @@
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-crypto-cipher:1.4.0-RC2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-config-core:1.4.0-RC2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-config-ogdl:1.4.0-RC2" level="project" />
-    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.9.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-event:1.4.0-RC2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-web:1.4.0-RC2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-spring:1.4.0-RC2" level="project" />
@@ -95,5 +94,9 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:2.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.leibnizcenter:xml-to-json:0.9.1" level="project" />
+    <orderEntry type="library" name="Maven: xerces:xercesImpl:2.4.0" level="project" />
   </component>
 </module>
