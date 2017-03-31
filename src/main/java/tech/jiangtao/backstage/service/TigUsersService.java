@@ -2,8 +2,6 @@ package tech.jiangtao.backstage.service;
 
 import java.util.List;
 import tech.jiangtao.backstage.model.TigUsers;
-import tech.jiangtao.backstage.model.TigUsersCustomVo;
-import tech.jiangtao.backstage.model.User;
 import tech.jiangtao.backstage.model.json.Friends;
 
 /**
