@@ -29,13 +29,37 @@ public class TigGroupServiceImpl implements TigGroupService {
   @Override public List<Groups> findOwnerGroups(String uid) throws Exception {
     TigNodesExample example = new TigNodesExample();
     List<Groups> groups = new ArrayList<>();
-    TigNodesExample.Criteria  criteria = example.createCriteria().andNodeLike("%muc%");
+    TigNodesExample.Criteria criteria = example.createCriteria().andNodeLike("%muc%");
     List<TigNodes> tigNodes = tigNodesMapper.selectByExample(example);
-    if (tigNodes.size()!=0){
-      for(TigNodes node: tigNodes){
+    return pushGroups(tigNodes);
+  }
+
+  /**
+   * 搜索群
+   * @param rootName
+   * @return
+   * @throws Exception
+   */
+  @Override public List<Groups> findSearchRootName(String rootName) throws Exception {
+    TigNodesExample example = new TigNodesExample();
+    List<Groups> groups = new ArrayList<>();
+    TigNodesExample.Criteria criteria = example.createCriteria().andNodeLike("%" + rootName + "%");
+    List<TigNodes> tigNodes = tigNodesMapper.selectByExample(example);
+    return pushGroups(tigNodes);
+  }
+
+  /**
+   * 生产group
+   * @param tigNodes
+   * @return
+   */
+  public List<Groups> pushGroups(List<TigNodes> tigNodes){
+    List<Groups> groups = new ArrayList<>();
+    if (tigNodes.size() > 0) {
+      for (TigNodes node : tigNodes) {
         Groups group = new Groups();
-        group.setGroupUid(node.getNid()+"");
-        group.setRoomName(node.getNode().substring(0,node.getNode().indexOf("@")));
+        group.setGroupUid(node.getNid() + "");
+        group.setRoomName(node.getNode().substring(0, node.getNode().indexOf("@")));
         group.setNode(node.getNode());
         groups.add(group);
       }

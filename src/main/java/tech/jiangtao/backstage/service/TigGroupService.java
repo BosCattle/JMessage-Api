@@ -13,5 +13,19 @@ import tech.jiangtao.backstage.model.json.Groups;
  **/
 public interface TigGroupService {
 
+  /**
+   * 得到自己的群组
+   * @param uid
+   * @return
+   * @throws Exception
+   */
   public List<Groups> findOwnerGroups(String uid) throws Exception;
+
+  /**
+   * 根据群名搜索
+   * @param rootName
+   * @return
+   * @throws Exception
+   */
+  public List<Groups> findSearchRootName(String rootName) throws Exception;
 }

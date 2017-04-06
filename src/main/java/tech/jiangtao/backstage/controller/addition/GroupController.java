@@ -35,4 +35,40 @@ public class GroupController {
     }
     return null;
   }
+
+  /**
+   * 根据群名搜索群
+   * @param rootName
+   * @return
+   */
+  @RequestMapping("/search")
+  public @ResponseBody List<Groups> searchRootName(String rootName){
+    try {
+      return tigGroupService.findSearchRootName(rootName);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  /**
+   * 更新群名
+   * @param roomName
+   * @return
+   */
+  @RequestMapping("/update/roomName")
+  public @ResponseBody Groups updateRoomName(String roomName,String nid){
+    return null;
+  }
+
+  /**
+   *
+   * @param name
+   * @param uid
+   * @return 返回群组信息，创建群
+   */
+  @RequestMapping("/create")
+  public @ResponseBody Groups createRoom(String name,String uid){
+    return null;
+  }
 }
