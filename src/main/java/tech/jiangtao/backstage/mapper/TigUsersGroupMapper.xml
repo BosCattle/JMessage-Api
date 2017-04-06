@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.jiangtao.backstage.mapper.TigUsersGroupMapper">
+
+  <select id="queryMyGroups" parameterType="java.lang.String" resultType="tigPairs">
+          SELECT * FROM tig_pairs
+          WHERE nid IN (SELECT tig_nodes.nid
+            FROM tig_nodes
+            WHERE parent_nid IN (SELECT nid
+              FROM tig_nodes
+              WHERE node = 'rooms'
+                OR node = 'affiliations'
+                OR node = 'config'
+                OR node LIKE '%muc%'))
+  </select>
+</mapper>
