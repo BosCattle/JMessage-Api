@@ -34,5 +34,16 @@
         AND tig_users.uid = tig_pairs.uid
   </select>
 
+  <select id="allInvite" parameterType="java.lang.String" resultType="tigPairs">
+        SELECT tig_pairs.*
+        FROM tig_pairs
+        WHERE tig_pairs.uid = (
+            SELECT tig_users.uid
+            FROM tig_users
+            WHERE tig_users.user_id = #{userId}
+            )
+          AND tig_pairs.pkey = 'roster'
+  </select>
+
 
 </mapper>

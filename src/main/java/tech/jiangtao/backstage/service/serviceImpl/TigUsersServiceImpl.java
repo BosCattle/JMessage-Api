@@ -1,17 +1,23 @@
 package tech.jiangtao.backstage.service.serviceImpl;
 
+import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 import tech.jiangtao.backstage.mapper.TigUsersCustomMapper;
 import tech.jiangtao.backstage.mapper.TigUsersMapper;
+import tech.jiangtao.backstage.model.TigPairs;
 import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.TigUsersCustomVo;
 import tech.jiangtao.backstage.model.TigUsersExample;
+import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
+import tech.jiangtao.backstage.model.json.User;
 import tech.jiangtao.backstage.service.TigUsersService;
 
 /**
@@ -91,5 +97,40 @@ public class TigUsersServiceImpl implements TigUsersService {
       return list;
     }
     return null;
+  }
+
+  @Override public List<Account> allInvite(String userId) throws Exception {
+    TigPairs tigPairs = tigUsersCustomMapper.allInvite(userId);
+    List<Account> accounts = new ArrayList<>();
+    JSONObject json = XML.toJSONObject(tigPairs.getPval(), true);
+    JSONArray array = json.getJSONArray("contact");
+    for (int i=0;i<array.length();i++){
+      JSONObject object = (JSONObject) array.get(i);
+      Account account = new Account();
+      account.setNickName(object.getString("name"));
+      account.setUserId(object.getString("jid"));
+      account.setRelative(false);
+      account.setAvatar(null);
+      accounts.add(account);
+    }
+    return accounts;
+  }
+
+  @Override public List<Account> queryAccount(String nickname) throws Exception {
+    List<Account> accounts = new ArrayList<>();
+    TigUsersExample example = new TigUsersExample();
+    TigUsersExample.Criteria criteriaexample = example.createCriteria().andUserIdLike("%"+nickname+"%");
+    List<TigUsers> tigUserses = tigUsersMapper.selectByExample(example);
+    if (tigUserses!=null&&tigUserses.size()>0){
+     for (TigUsers users:tigUserses){
+       Account account = new Account();
+       account.setAvatar(null);
+       account.setNickName(users.getUserId().substring(0,users.getUserId().indexOf("@")));
+       account.setUserId(users.getUserId());
+       account.setRelative(false);
+       accounts.add(account);
+     }
+    }
+    return accounts;
   }
 }

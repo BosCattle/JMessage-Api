@@ -36,14 +36,14 @@ public class TigGroupServiceImpl implements TigGroupService {
 
   /**
    * 搜索群
-   * @param rootName
+   * @param roomName
    * @return
    * @throws Exception
    */
-  @Override public List<Groups> findSearchRootName(String rootName) throws Exception {
+  @Override public List<Groups> findSearchRootName(String roomName) throws Exception {
     TigNodesExample example = new TigNodesExample();
     List<Groups> groups = new ArrayList<>();
-    TigNodesExample.Criteria criteria = example.createCriteria().andNodeLike("%" + rootName + "%");
+    TigNodesExample.Criteria criteria = example.createCriteria().andNodeLike("%" + roomName + "%");
     List<TigNodes> tigNodes = tigNodesMapper.selectByExample(example);
     return pushGroups(tigNodes);
   }

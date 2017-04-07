@@ -2,6 +2,7 @@ package tech.jiangtao.backstage.service;
 
 import java.util.List;
 import tech.jiangtao.backstage.model.TigUsers;
+import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
 
 /**
@@ -19,4 +20,8 @@ public interface TigUsersService {
   public TigUsers queryUser(String userId) throws Exception;
 
   public List<Friends> queryUserFriends(String userId) throws Exception;
+
+  public List<Account> allInvite(String userId) throws Exception;
+
+  public List<Account> queryAccount(String userId) throws Exception;
 }

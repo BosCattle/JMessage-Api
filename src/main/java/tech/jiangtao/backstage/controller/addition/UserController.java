@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.TigUsersCustomVo;
+import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
 import tech.jiangtao.backstage.service.TigUsersService;
 
@@ -43,5 +44,27 @@ public class UserController {
   @RequestMapping(value = "/queryUser",method = RequestMethod.POST)
   public @ResponseBody TigUsers queryUser(String userId) throws Exception{
     return tigUsersService.queryUser(userId);
+  }
+
+  /**
+   * 获取我的所有邀请
+   * @param userId
+   * @return
+   * @throws Exception
+   */
+  @RequestMapping(value = "/allInvite")
+  public @ResponseBody List<Account> allInvite(String userId) throws Exception{
+    return tigUsersService.allInvite(userId);
+  }
+
+  /**
+   * 根据昵称查询用户
+   * @param nickname
+   * @return
+   * @throws Exception
+   */
+  @RequestMapping(value = "/queryAccount")
+  public List<Account> queryAccount(String nickname) throws Exception{
+    return tigUsersService.queryAccount(nickname);
   }
 }
