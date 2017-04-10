@@ -47,6 +47,7 @@
     <table tableName="broadcast_msgs"/>
     <table tableName="broadcast_msgs_recipients"/>
     <table tableName="msg_history"/>
+    <table tableName="muc_history"/>
     <table tableName="short_news"/>
     <table tableName="tig_ma_jids"/>
     <table tableName="tig_ma_msgs"/>

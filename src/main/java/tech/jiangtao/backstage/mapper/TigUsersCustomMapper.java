@@ -21,4 +21,5 @@ public interface TigUsersCustomMapper {
   public List<TigUsersCustomVo> queryFriendsResult(List friends) throws Exception;
 
   public TigPairs allInvite(String userId) throws Exception;
+
 }

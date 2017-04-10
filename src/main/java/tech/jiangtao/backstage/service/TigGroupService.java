@@ -1,6 +1,8 @@
 package tech.jiangtao.backstage.service;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.ResponseBody;
+import tech.jiangtao.backstage.model.MucHistory;
 import tech.jiangtao.backstage.model.json.Groups;
 
 /**
@@ -28,4 +30,12 @@ public interface TigGroupService {
    * @throws Exception
    */
   public List<Groups> findSearchRootName(String rootName) throws Exception;
+
+  /**
+   * 根据群uid获取历史消息
+   * @param uid
+   * @return
+   * @throws Exception
+   */
+  public List<MucHistory> findMucHistory(String uid,int page) throws Exception;
 }

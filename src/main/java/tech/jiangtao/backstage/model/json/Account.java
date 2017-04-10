@@ -1,6 +1,7 @@
 package tech.jiangtao.backstage.model.json;
 
 import java.io.Serializable;
+import tech.jiangtao.backstage.utils.InviteType;
 
 /**
  * @class: Account </br>
@@ -15,6 +16,15 @@ public class Account implements Serializable {
   private String nickName;
   private String avatar;
   private boolean relative;
+  private InviteType inviteType;
+
+  public InviteType getInviteType() {
+    return inviteType;
+  }
+
+  public void setInviteType(InviteType inviteType) {
+    this.inviteType = inviteType;
+  }
 
   public void setRelative(boolean relative) {
     this.relative = relative;

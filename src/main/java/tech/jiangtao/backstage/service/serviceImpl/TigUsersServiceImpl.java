@@ -1,6 +1,5 @@
 package tech.jiangtao.backstage.service.serviceImpl;
 
-import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
@@ -8,7 +7,6 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 import tech.jiangtao.backstage.mapper.TigUsersCustomMapper;
 import tech.jiangtao.backstage.mapper.TigUsersMapper;
 import tech.jiangtao.backstage.model.TigPairs;
@@ -17,8 +15,8 @@ import tech.jiangtao.backstage.model.TigUsersCustomVo;
 import tech.jiangtao.backstage.model.TigUsersExample;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
-import tech.jiangtao.backstage.model.json.User;
 import tech.jiangtao.backstage.service.TigUsersService;
+import tech.jiangtao.backstage.utils.InviteType;
 
 /**
  * @class: TigUsersServiceImpl </br>
@@ -74,7 +72,6 @@ public class TigUsersServiceImpl implements TigUsersService {
       for (TigUsersCustomVo vo : usersCustomVos) {
         JSONObject json = XML.toJSONObject(vo.getTigUsersCustom().getPval(), true);
         vo.getTigUsersCustom().setPval(json.toString());
-        JSONObject object = json.getJSONObject("contact");
         friends.add(vo.getTigUsersCustom().getUid());
         System.out.println(vo.getTigUsersCustom().getUid());
       }
@@ -111,6 +108,7 @@ public class TigUsersServiceImpl implements TigUsersService {
       account.setUserId(object.getString("jid"));
       account.setRelative(false);
       account.setAvatar(null);
+      account.setInviteType(InviteType.FRIEND);
       accounts.add(account);
     }
     return accounts;

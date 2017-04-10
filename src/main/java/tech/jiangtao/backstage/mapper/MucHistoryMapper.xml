@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.jiangtao.backstage.mapper.MucHistoryMapper" >
+  <resultMap id="BaseResultMap" type="tech.jiangtao.backstage.model.MucHistory" >
+    <result column="room_name" property="roomName" jdbcType="CHAR" />
+    <result column="event_type" property="eventType" jdbcType="INTEGER" />
+    <result column="timestamp" property="timestamp" jdbcType="BIGINT" />
+    <result column="sender_jid" property="senderJid" jdbcType="VARCHAR" />
+    <result column="sender_nickname" property="senderNickname" jdbcType="CHAR" />
+    <result column="public_event" property="publicEvent" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="tech.jiangtao.backstage.model.MucHistoryWithBLOBs" extends="BaseResultMap" >
+    <result column="body" property="body" jdbcType="LONGVARCHAR" />
+    <result column="msg" property="msg" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    room_name, event_type, timestamp, sender_jid, sender_nickname, public_event
+  </sql>
+  <sql id="Blob_Column_List" >
+    body, msg
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="tech.jiangtao.backstage.model.MucHistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from muc_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="tech.jiangtao.backstage.model.MucHistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from muc_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="tech.jiangtao.backstage.model.MucHistoryExample" >
+    delete from muc_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="tech.jiangtao.backstage.model.MucHistoryWithBLOBs" >
+    insert into muc_history (room_name, event_type, timestamp, 
+      sender_jid, sender_nickname, public_event, 
+      body, msg)
+    values (#{roomName,jdbcType=CHAR}, #{eventType,jdbcType=INTEGER}, #{timestamp,jdbcType=BIGINT}, 
+      #{senderJid,jdbcType=VARCHAR}, #{senderNickname,jdbcType=CHAR}, #{publicEvent,jdbcType=BIT}, 
+      #{body,jdbcType=LONGVARCHAR}, #{msg,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="tech.jiangtao.backstage.model.MucHistoryWithBLOBs" >
+    insert into muc_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roomName != null" >
+        room_name,
+      </if>
+      <if test="eventType != null" >
+        event_type,
+      </if>
+      <if test="timestamp != null" >
+        timestamp,
+      </if>
+      <if test="senderJid != null" >
+        sender_jid,
+      </if>
+      <if test="senderNickname != null" >
+        sender_nickname,
+      </if>
+      <if test="publicEvent != null" >
+        public_event,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roomName != null" >
+        #{roomName,jdbcType=CHAR},
+      </if>
+      <if test="eventType != null" >
+        #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null" >
+        #{timestamp,jdbcType=BIGINT},
+      </if>
+      <if test="senderJid != null" >
+        #{senderJid,jdbcType=VARCHAR},
+      </if>
+      <if test="senderNickname != null" >
+        #{senderNickname,jdbcType=CHAR},
+      </if>
+      <if test="publicEvent != null" >
+        #{publicEvent,jdbcType=BIT},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="tech.jiangtao.backstage.model.MucHistoryExample" resultType="java.lang.Integer" >
+    select count(*) from muc_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update muc_history
+    <set >
+      <if test="record.roomName != null" >
+        room_name = #{record.roomName,jdbcType=CHAR},
+      </if>
+      <if test="record.eventType != null" >
+        event_type = #{record.eventType,jdbcType=INTEGER},
+      </if>
+      <if test="record.timestamp != null" >
+        timestamp = #{record.timestamp,jdbcType=BIGINT},
+      </if>
+      <if test="record.senderJid != null" >
+        sender_jid = #{record.senderJid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.senderNickname != null" >
+        sender_nickname = #{record.senderNickname,jdbcType=CHAR},
+      </if>
+      <if test="record.publicEvent != null" >
+        public_event = #{record.publicEvent,jdbcType=BIT},
+      </if>
+      <if test="record.body != null" >
+        body = #{record.body,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.msg != null" >
+        msg = #{record.msg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update muc_history
+    set room_name = #{record.roomName,jdbcType=CHAR},
+      event_type = #{record.eventType,jdbcType=INTEGER},
+      timestamp = #{record.timestamp,jdbcType=BIGINT},
+      sender_jid = #{record.senderJid,jdbcType=VARCHAR},
+      sender_nickname = #{record.senderNickname,jdbcType=CHAR},
+      public_event = #{record.publicEvent,jdbcType=BIT},
+      body = #{record.body,jdbcType=LONGVARCHAR},
+      msg = #{record.msg,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update muc_history
+    set room_name = #{record.roomName,jdbcType=CHAR},
+      event_type = #{record.eventType,jdbcType=INTEGER},
+      timestamp = #{record.timestamp,jdbcType=BIGINT},
+      sender_jid = #{record.senderJid,jdbcType=VARCHAR},
+      sender_nickname = #{record.senderNickname,jdbcType=CHAR},
+      public_event = #{record.publicEvent,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

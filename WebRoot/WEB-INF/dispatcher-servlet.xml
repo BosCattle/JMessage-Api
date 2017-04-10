@@ -18,9 +18,12 @@
 
   <!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
   <mvc:annotation-driven />
+  <mvc:default-servlet-handler />
 
   <!-- 使用注解的包，包括子集 -->
   <context:component-scan base-package="tech.jiangtao.backstage.controller" />
+  <context:component-scan base-package="tech.jiangtao.backstage.swagger" />
+  <bean class="tech.jiangtao.backstage.swagger.Swagger"/>
 
   <!-- 配置视图解析器 要求将jstl的包加入classpath-->
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
