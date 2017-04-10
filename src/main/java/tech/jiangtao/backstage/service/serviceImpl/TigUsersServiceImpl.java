@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class TigUsersServiceImpl implements TigUsersService {
     TigUsersExample example = new TigUsersExample();
     TigUsersExample.Criteria criteriaexample = example.createCriteria().andUserIdEqualTo(userId);
     List<TigUsers> tigUserses = tigUsersMapper.selectByExample(example);
-    if (tigUserses!=null&&tigUserses.size()>0){
+    if (tigUserses != null && tigUserses.size() > 0) {
       return tigUserses.get(0);
     }
     return null;
@@ -100,9 +101,9 @@ public class TigUsersServiceImpl implements TigUsersService {
     TigPairs tigPairs = tigUsersCustomMapper.allInvite(userId);
     List<Account> accounts = new ArrayList<>();
     JSONObject json = XML.toJSONObject(tigPairs.getPval(), true);
-    JSONArray array = json.getJSONArray("contact");
-    for (int i=0;i<array.length();i++){
-      JSONObject object = (JSONObject) array.get(i);
+    Object objects = new JSONTokener(json.optString("contact")).nextValue();
+    if (objects instanceof JSONObject) {
+      JSONObject object = json.getJSONObject("contact");
       Account account = new Account();
       account.setNickName(object.getString("name"));
       account.setUserId(object.getString("jid"));
@@ -110,24 +111,38 @@ public class TigUsersServiceImpl implements TigUsersService {
       account.setAvatar(null);
       account.setInviteType(InviteType.FRIEND);
       accounts.add(account);
+    } else if (objects instanceof JSONArray) {
+      JSONArray array = json.getJSONArray("contact");
+      for (int i = 0; i < array.length(); i++) {
+        JSONObject object = (JSONObject) array.get(i);
+        Account account = new Account();
+        account.setNickName(object.getString("name"));
+        account.setUserId(object.getString("jid"));
+        account.setRelative(false);
+        account.setAvatar(null);
+        account.setInviteType(InviteType.FRIEND);
+        accounts.add(account);
+      }
     }
+
     return accounts;
   }
 
   @Override public List<Account> queryAccount(String nickname) throws Exception {
     List<Account> accounts = new ArrayList<>();
     TigUsersExample example = new TigUsersExample();
-    TigUsersExample.Criteria criteriaexample = example.createCriteria().andUserIdLike("%"+nickname+"%");
+    TigUsersExample.Criteria criteriaexample =
+        example.createCriteria().andUserIdLike("%" + nickname + "%");
     List<TigUsers> tigUserses = tigUsersMapper.selectByExample(example);
-    if (tigUserses!=null&&tigUserses.size()>0){
-     for (TigUsers users:tigUserses){
-       Account account = new Account();
-       account.setAvatar(null);
-       account.setNickName(users.getUserId().substring(0,users.getUserId().indexOf("@")));
-       account.setUserId(users.getUserId());
-       account.setRelative(false);
-       accounts.add(account);
-     }
+    if (tigUserses != null && tigUserses.size() > 0) {
+      for (TigUsers users : tigUserses) {
+        Account account = new Account();
+        account.setAvatar(null);
+        account.setNickName(users.getUserId().substring(0, users.getUserId().indexOf("@")));
+        account.setUserId(users.getUserId());
+        account.setRelative(false);
+        accounts.add(account);
+      }
     }
     return accounts;
   }
