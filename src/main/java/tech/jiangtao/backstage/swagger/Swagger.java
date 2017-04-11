@@ -20,7 +20,9 @@ import springfox.documentation.schema.WildcardType;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ResponseMessage;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.DocumentationContextBuilder;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static springfox.documentation.schema.AlternateTypeRules.newRule;
@@ -45,21 +47,23 @@ public class Swagger {
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.any())
         .build()
+        .pathMapping("/")
         .apiInfo(apiInfo());
-
   }
 
-
-
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo(
-        "JMessage项目",
-        "项目所有接口文档",
-        "0.0.8",
-        "Kevin",
-        "jiangtao103cp@gmail.com",
-        "闭源",
-        "http://message.jiangtao.tech");
-    return apiInfo;
+    return new ApiInfoBuilder()
+        .title("JMessage项目")
+        .description("项目所有接口文档")
+        .termsOfServiceUrl("http://message.jiangtao.tech/")
+        .contact("Kevin jiangtao103cp@gmail.com")
+        .license("闭源")
+        .version("1.0")
+        .build();
+  }
+
+  @Bean
+  UiConfiguration uiConfig() {
+    return new UiConfiguration(null);
   }
 }

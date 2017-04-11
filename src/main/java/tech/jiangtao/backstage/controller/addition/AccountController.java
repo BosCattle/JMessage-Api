@@ -30,7 +30,7 @@ import tech.jiangtao.backstage.service.TigAccountService;
  * @version: 0.0.1 </br>
  **/
 
-@Api(value = "账户接口")
+@Api(value = "账户")
 @RestController
 @RequestMapping("/account")
 public class AccountController {
