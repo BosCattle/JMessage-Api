@@ -16,6 +16,7 @@ import tech.jiangtao.backstage.mapper.TigUsersMapper;
 import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
+import tech.jiangtao.backstage.service.TigAccountService;
 
 /**
  * @class: CommonController </br>
@@ -32,13 +33,7 @@ import tech.jiangtao.backstage.model.json.Friends;
 public class AccountController {
 
   @Autowired
-  private TigUsersMapper tigUsersMapper;
-
-  @Autowired
-  private TigNodesMapper tigNodesMapper;
-
-  @Autowired
-  private TigPairsMapper tigPairsMapper;
+  private TigAccountService tigAccountService;
 
   /**
    * 注册账户
@@ -46,7 +41,8 @@ public class AccountController {
    * @param nickName
    * @param avatar
    * @param sex
-   * @param sigsture
+   * @param signature
+   * @param password
    * @return
    * @throws Exception
    */
@@ -58,13 +54,19 @@ public class AccountController {
           String userJid,
       @ApiParam(required = true, name = "nickName", value = "用户昵称") @RequestParam("nickName")
           String nickName,
+      @ApiParam(required = true, name = "password", value = "密码") @RequestParam("password")
+          String password,
       @ApiParam(required = true, name = "avatar", value = "用户头像") @RequestParam("avatar")
           String avatar,
       @ApiParam(required = true, name = "sex", value = "性别") @RequestParam("sex")
           String sex,
       @ApiParam(required = true, name = "signature", value = "个性签名") @RequestParam("signature")
-          String signature) throws Exception {
-
+          String signature) {
+    try {
+      return tigAccountService.insertAccount(userJid,nickName,avatar,sex,signature,password);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return null;
   }
 
@@ -91,7 +93,7 @@ public class AccountController {
       @ApiParam(name = "sex", value = "性别") @RequestParam("sex")
           String sex,
       @ApiParam(name = "signature", value = "个性签名") @RequestParam("signature")
-          String sigsture) throws Exception {
+          String sigsture) {
 
     return null;
   }

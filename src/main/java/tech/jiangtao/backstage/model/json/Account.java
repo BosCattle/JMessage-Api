@@ -13,14 +13,24 @@ import tech.jiangtao.backstage.utils.SexType;
  * @version: 0.0.1 </br>
  **/
 public class Account implements Serializable {
-  private Integer uid;
+  private long uid;
+  private long nid;
   private String userId;
   private String nickName;
   private String avatar;
   private boolean relative;
   private InviteType inviteType;
   private String signature;
-  private SexType sex;
+  // 0: Nan 1:NV
+  private boolean sex;
+
+  public long getNid() {
+    return nid;
+  }
+
+  public void setNid(long nid) {
+    this.nid = nid;
+  }
 
   public String getSignature() {
     return signature;
@@ -30,19 +40,19 @@ public class Account implements Serializable {
     this.signature = signature;
   }
 
-  public SexType getSex() {
+  public boolean getSex() {
     return sex;
   }
 
-  public void setSex(SexType sex) {
+  public void setSex(boolean sex) {
     this.sex = sex;
   }
 
-  public Integer getUid() {
+  public long getUid() {
     return uid;
   }
 
-  public void setUid(Integer uid) {
+  public void setUid(long uid) {
     this.uid = uid;
   }
 

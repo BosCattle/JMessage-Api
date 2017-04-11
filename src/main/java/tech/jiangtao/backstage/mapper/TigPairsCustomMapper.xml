@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.jiangtao.backstage.mapper.TigPairsCustomMapper">
+
+ <insert id="insertPairsReturnKeys" parameterType="tigPairs">
+   <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="nid">
+     SELECT LAST_INSERT_ID() AS nid
+   </selectKey>
+   insert into tig_pairs (uid,
+   pkey, pval
+   )
+   values (#{uid,jdbcType=BIGINT},
+   #{pkey,jdbcType=VARCHAR},
+   #{pval,jdbcType=VARCHAR}
+   )
+ </insert>
+
+</mapper>

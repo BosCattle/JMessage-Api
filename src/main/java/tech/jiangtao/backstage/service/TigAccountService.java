@@ -12,6 +12,17 @@ import tech.jiangtao.backstage.model.json.Account;
  **/
 public interface TigAccountService {
 
-  public Account createAccount(String userJid, String nickName, String avatar, String sex,
+  /**
+   * 创建用户
+   * @param userJid
+   * @param nickName
+   * @param avatar
+   * @param sex
+   * @param signature
+   * @param password
+   * @return
+   * @throws Exception
+   */
+  public Account insertAccount(String userJid, String nickName, String avatar, String sex,
       String signature,String password) throws Exception;
 }

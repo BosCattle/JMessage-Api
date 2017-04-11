@@ -22,7 +22,7 @@ public interface TigUsersCustomMapper {
 
   public TigPairs allInvite(String userId) throws Exception;
 
-  public int addUser(Map<String,String> map) throws Exception;
+  public int insertUser(Map<String,String> map) throws Exception;
 
   public int selectMaxNid() throws Exception;
 
