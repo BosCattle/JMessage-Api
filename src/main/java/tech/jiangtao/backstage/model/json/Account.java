@@ -2,6 +2,7 @@ package tech.jiangtao.backstage.model.json;
 
 import java.io.Serializable;
 import tech.jiangtao.backstage.utils.InviteType;
+import tech.jiangtao.backstage.utils.SexType;
 
 /**
  * @class: Account </br>
@@ -12,11 +13,38 @@ import tech.jiangtao.backstage.utils.InviteType;
  * @version: 0.0.1 </br>
  **/
 public class Account implements Serializable {
+  private Integer uid;
   private String userId;
   private String nickName;
   private String avatar;
   private boolean relative;
   private InviteType inviteType;
+  private String signature;
+  private SexType sex;
+
+  public String getSignature() {
+    return signature;
+  }
+
+  public void setSignature(String signature) {
+    this.signature = signature;
+  }
+
+  public SexType getSex() {
+    return sex;
+  }
+
+  public void setSex(SexType sex) {
+    this.sex = sex;
+  }
+
+  public Integer getUid() {
+    return uid;
+  }
+
+  public void setUid(Integer uid) {
+    this.uid = uid;
+  }
 
   public InviteType getInviteType() {
     return inviteType;

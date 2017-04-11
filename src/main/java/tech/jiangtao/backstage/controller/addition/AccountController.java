@@ -3,6 +3,7 @@ package tech.jiangtao.backstage.controller.addition;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,8 +62,8 @@ public class AccountController {
           String avatar,
       @ApiParam(required = true, name = "sex", value = "性别") @RequestParam("sex")
           String sex,
-      @ApiParam(required = true, name = "sigsture", value = "个性签名") @RequestParam("sigsture")
-          String sigsture) throws Exception {
+      @ApiParam(required = true, name = "signature", value = "个性签名") @RequestParam("signature")
+          String signature) throws Exception {
 
     return null;
   }
@@ -89,7 +90,7 @@ public class AccountController {
           String avatar,
       @ApiParam(name = "sex", value = "性别") @RequestParam("sex")
           String sex,
-      @ApiParam(name = "sigsture", value = "个性签名") @RequestParam("sigsture")
+      @ApiParam(name = "signature", value = "个性签名") @RequestParam("signature")
           String sigsture) throws Exception {
 
     return null;

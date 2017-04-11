@@ -45,5 +45,18 @@
           AND tig_pairs.pkey = 'roster'
   </select>
 
+  <!--添加用户-->
+  <parameterMap id="getParamMap" type="java.util.Map">
+    <parameter property="uid" mode="IN" jdbcType="string"/>
+    <parameter property="password" mode="IN" jdbcType="string"/>
+  </parameterMap>
+  <select id="addUser" parameterType="getParamMap" statementType="CALLABLE" resultType="Integer">
+    CALL TigAddUserPlainPw(?,?)
+  </select>
+
+  <!--添加vcard-->
+  <select id="selectMaxNid" resultType="Integer">
+    SELECT max(tig_pairs.nid)+1 FROM tig_pairs
+  </select>
 
 </mapper>
