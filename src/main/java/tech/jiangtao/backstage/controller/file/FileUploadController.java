@@ -27,7 +27,7 @@ import java.io.FileOutputStream;
  * Date: 2017/2/21 11:28 </br>
  * Update: 2017/2/21 11:28 </br>
  **/
-@Api(value = "文件上传")
+@Api(value = "上传",description = "图片，语音，视频，文件上传",tags = "文件上传")
 @RestController
 @RequestMapping("/file")
 public class FileUploadController {

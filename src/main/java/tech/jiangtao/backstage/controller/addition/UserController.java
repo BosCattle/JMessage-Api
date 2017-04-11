@@ -23,7 +23,7 @@ import tech.jiangtao.backstage.service.TigUsersService;
  * Date: 2017/2/21 11:28 </br>
  * Update: 2017/2/21 11:28 </br>
  **/
-@Api(value = "用户")
+@Api(value = "用户",description = "与用户相关的接口",tags = "用户")
 @RestController
 @RequestMapping("/user")
 public class UserController {

@@ -22,7 +22,7 @@ import tech.jiangtao.backstage.service.TigGroupService;
  * @date: 2017/3/31 下午8:45</br>
  * @version: 0.0.1 </br>
  **/
-@Api(value = "群组")
+@Api(value = "群组",description = "群组相关的接口",tags = "群组")
 @RestController
 @RequestMapping("/group")
 public class GroupController {

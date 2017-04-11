@@ -20,7 +20,7 @@
   <mvc:annotation-driven />
   <mvc:default-servlet-handler />
   <mvc:resources mapping="*.html" location="classpath:/META-INF/resources/"/>
-  <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+  <mvc:resources mapping="/webjars/springfox-swagger-ui/**" location="classpath:/META-INF/resources/webjars/springfox-swagger-ui/"/>
   <!-- 使用注解的包，包括子集 -->
   <context:component-scan base-package="tech.jiangtao.backstage.controller" />
   <context:component-scan base-package="tech.jiangtao.backstage.swagger" />
