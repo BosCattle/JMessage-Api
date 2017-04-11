@@ -18,4 +18,8 @@ public interface TigPairsCustomMapper {
 
   public long insertPairsReturnKeys(TigPairs pairs) throws Exception;
 
+  public TigPairs queryTigPairs(long uid) throws Exception;
+
+  public void updateTigPairs(TigPairs pairs) throws Exception;
+
 }

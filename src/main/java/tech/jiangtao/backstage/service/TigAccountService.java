@@ -14,15 +14,21 @@ public interface TigAccountService {
 
   /**
    * 创建用户
-   * @param userJid
+   *
+   * @throws Exception
+   */
+  public Account insertAccount(String userJid, String nickName, String avatar, boolean sex,
+      String signature, String password) throws Exception;
+
+  /**
+   * 更新用户信息
    * @param nickName
    * @param avatar
    * @param sex
    * @param signature
-   * @param password
    * @return
    * @throws Exception
    */
-  public Account insertAccount(String userJid, String nickName, String avatar, String sex,
-      String signature,String password) throws Exception;
+  public Account updateAccount(long uid,String userJid,String nickName, String avatar, boolean sex, String signature)
+      throws Exception;
 }

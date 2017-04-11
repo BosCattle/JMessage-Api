@@ -42,11 +42,11 @@ public class Swagger {
     ApiInfo apiInfo = new ApiInfo(
         "JMessage项目",
         "项目所有接口文档",
-        "API TOS",
-        "Terms of service",
+        "0.0.8",
+        "Kevin",
         "jiangtao103cp@gmail.com",
-        "License of API",
-        "API license URL");
+        "闭源",
+        "http://message.jiangtao.tech");
     return apiInfo;
   }
 }

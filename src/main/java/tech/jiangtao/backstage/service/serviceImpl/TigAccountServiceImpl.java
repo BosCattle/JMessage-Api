@@ -1,7 +1,10 @@
 package tech.jiangtao.backstage.service.serviceImpl;
 
+import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.List;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.jiangtao.backstage.mapper.TigPairsCustomMapper;
@@ -14,8 +17,8 @@ import tech.jiangtao.backstage.model.TigPairs;
 import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.TigUsersExample;
 import tech.jiangtao.backstage.model.json.Account;
+import tech.jiangtao.backstage.model.json.vCard;
 import tech.jiangtao.backstage.service.TigAccountService;
-import tech.jiangtao.backstage.utils.SexType;
 
 /**
  * @class: TigAccountServiceImpl </br>
@@ -48,9 +51,10 @@ public class TigAccountServiceImpl implements TigAccountService {
    *
    * @throws Exception
    */
-  @Override public Account insertAccount(String userJid, String nickName, String avatar, String sex,
+  @Override public Account insertAccount(String userJid, String nickName, String avatar,
+      boolean sex,
       String signature, String password) throws Exception {
-    Account acount = new Account();
+    Account account = new Account();
     // 在user表中插入数据，并且在node表中插入了roster节点，即contact节点信息。
     HashMap<String, String> paramMap = new HashMap<>();
     paramMap.put("uid", userJid);
@@ -78,8 +82,7 @@ public class TigAccountServiceImpl implements TigAccountService {
     buffer.append("<vCard xmlns=\"vcard-temp\">");
     buffer.append("<NICKNAME>" + nickName + "</NICKNAME>");
     buffer.append("<AVATAR>" + avatar + "</AVATAR>");
-    buffer.append("<SEX>" + sex + "</SEX>");
-    buffer.append("<SIGNATURE>" + signature + "</SIGNATURE>");
+    buffer.append("<SEX>" + (sex ? "女" : "男") + "</SEX>");
     buffer.append("<SIGNATURE>" + signature + "</SIGNATURE>");
     buffer.append("</vCard>");
     System.out.println(buffer.toString());
@@ -89,13 +92,61 @@ public class TigAccountServiceImpl implements TigAccountService {
     pair.setPkey("vCard");
     pair.setPval(buffer.toString());
     tigPairsMapper.insert(pair);
-    acount.setUid(uid);
-    acount.setNid(nid);
-    acount.setUserId(userJid);
-    acount.setAvatar(avatar);
-    acount.setNickName(nickName);
-    acount.setSex(!sex.equals("男"));
-    acount.setSignature(signature);
-    return acount;
+    account.setUid(uid);
+    account.setNid(nid);
+    account.setUserId(userJid);
+    account.setAvatar(avatar);
+    account.setNickName(nickName);
+    account.setSex(sex);
+    account.setSignature(signature);
+    return account;
+  }
+
+  @Override
+  public Account updateAccount(long uid, String userJid, String nickName, String avatar,
+      boolean sex,
+      String signature)
+      throws Exception {
+    TigPairs pairs = tigPairsCustomMapper.queryTigPairs(uid);
+    String pval = pairs.getPval();
+    System.out.println(pval);
+    // <vCard xmlns="vcard-temp"><NICKNAME>巴巴</NICKNAME>
+    // <AVATAR>http://blog.dhds.ds.png</AVATAR><SEX>男</SEX>
+    // <SIGNATURE>低年级的那份激动地那你发</SIGNATURE></vCard>
+    JSONObject object = XML.toJSONObject(pval);
+    JSONObject vCardObject = object.getJSONObject("vCard");
+    Gson gson = new Gson();
+    vCard vCard = gson.fromJson(vCardObject.toString(), vCard.class);
+    if (avatar != null) {
+      vCard.setAVATAR(avatar);
+    }
+    if (nickName != null) {
+      vCard.setNICKNAME(nickName);
+    }
+    if (sex) {
+      vCard.setSEX(sex ? "女" : "男");
+    }
+    if (signature != null) {
+      vCard.setSIGNATURE(signature);
+    }
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("<vCard xmlns=\"vcard-temp\">");
+    buffer.append("<NICKNAME>" + vCard.getNICKNAME() + "</NICKNAME>");
+    buffer.append("<AVATAR>" + vCard.getAVATAR() + "</AVATAR>");
+    buffer.append("<SEX>" + vCard.getSEX() + "</SEX>");
+    buffer.append("<SIGNATURE>" + vCard.getSIGNATURE() + "</SIGNATURE>");
+    buffer.append("</vCard>");
+    // 更新vCard;
+    pairs.setPval(buffer.toString());
+    tigPairsCustomMapper.updateTigPairs(pairs);
+    Account account = new Account();
+    account.setNid(pairs.getNid());
+    account.setUid(uid);
+    account.setNickName(vCard.getNICKNAME());
+    account.setSignature(vCard.getSIGNATURE());
+    account.setAvatar(vCard.AVATAR);
+    account.setSex(!vCard.getSEX().equals("男"));
+    account.setUserId(userJid);
+    return account;
   }
 }
