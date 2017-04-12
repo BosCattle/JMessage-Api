@@ -11,76 +11,73 @@ package tech.jiangtao.backstage.model.json;
 
 @Deprecated
 public class Contact {
-  private String activity;
   private String jid;
-  private String group;
+
+  private int activity;
+
   private String subs;
-  private String weight;
+
   private String preped;
-  private String last_seen;
+
   private String name;
 
-  public String getActivity() {
-    return activity;
-  }
+  private int weight;
 
-  public void setActivity(String activity) {
-    this.activity = activity;
-  }
-
-  public String getJid() {
-    return jid;
-  }
+  private int lastSeen;
 
   public void setJid(String jid) {
     this.jid = jid;
   }
 
-  public String getGroup() {
-    return group;
+  public String getJid() {
+    return this.jid;
   }
 
-  public void setGroup(String group) {
-    this.group = group;
+  public void setActivity(int activity) {
+    this.activity = activity;
   }
 
-  public String getSubs() {
-    return subs;
+  public int getActivity() {
+    return this.activity;
   }
 
   public void setSubs(String subs) {
     this.subs = subs;
   }
 
-  public String getWeight() {
-    return weight;
-  }
-
-  public void setWeight(String weight) {
-    this.weight = weight;
-  }
-
-  public String getPreped() {
-    return preped;
+  public String getSubs() {
+    return this.subs;
   }
 
   public void setPreped(String preped) {
     this.preped = preped;
   }
 
-  public String getLast_seen() {
-    return last_seen;
-  }
-
-  public void setLast_seen(String last_seen) {
-    this.last_seen = last_seen;
-  }
-
-  public String getName() {
-    return name;
+  public String getPreped() {
+    return this.preped;
   }
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public void setWeight(int weight) {
+    this.weight = weight;
+  }
+
+  public int getWeight() {
+    return this.weight;
+  }
+
+  public void setLastSeen(int lastSeen) {
+    this.lastSeen = lastSeen;
+  }
+
+  public int getLastSeen() {
+    return this.lastSeen;
   }
 }

@@ -19,6 +19,7 @@ import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.TigUsersCustomVo;
 import tech.jiangtao.backstage.model.TigUsersExample;
 import tech.jiangtao.backstage.model.json.Account;
+import tech.jiangtao.backstage.model.json.Contact;
 import tech.jiangtao.backstage.model.json.Friends;
 import tech.jiangtao.backstage.model.json.Groups;
 import tech.jiangtao.backstage.model.json.Invited;
@@ -208,7 +209,6 @@ public class TigUsersServiceImpl implements TigUsersService {
     return accounts;
   }
 
-
   @Override public Result deleteFriend(long uid, String userId) throws Exception {
     TigPairs tigPairs = new TigPairs();
     tigPairs.setUid(uid);
@@ -216,11 +216,18 @@ public class TigUsersServiceImpl implements TigUsersService {
     TigPairs queryTigPairs = tigPairsCustomMapper.queryTigPairsFromObject(tigPairs);
     // 转化roster->删除掉userJid的contact->保存到数据库中
     // 1. 转换roster
-
+    JSONObject roster = XML.toJSONObject(queryTigPairs.getPval());
+    JSONArray array = roster.getJSONArray("contact");
+    for (int size = 0; size < array.length(); size++) {
+      JSONObject object = new JSONObject(array.getJSONObject(size));
+      if (object.getString("jid").equals(userId)) {
+        
+      }
+    }
     // 2. 删除掉
 
     // 3. 保存到数据库
 
-    return new Result(true,"执行成功");
+    return new Result(true, "执行成功");
   }
 }

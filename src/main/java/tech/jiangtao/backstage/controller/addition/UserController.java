@@ -102,11 +102,10 @@ public class UserController {
   @RequestMapping(value = "/deleteFriend", method = RequestMethod.POST)
   @ApiOperation(value = "删除好友", httpMethod = "POST", response = Result.class,
       notes = "根据用户uid和好友userId删除好友")
-  @ApiImplicitParams({
-      @ApiImplicitParam(required = true, name = "userId", value = "好友userId"),
-      @ApiImplicitParam(required = true, name = "uid", value = "用户uid")}
-  )
-  public @ResponseBody Result deleteFriend(@RequestParam("uid") long uid,
+  public @ResponseBody Result deleteFriend(
+      @ApiParam(required = true, name = "uid", value = "用户uid")
+      @RequestParam("uid") long uid,
+      @ApiParam(required = true, name = "userId", value = "好友userId")
       @RequestParam("userId") String userId) {
     try {
       return tigUsersService.deleteFriend(uid, userId);
