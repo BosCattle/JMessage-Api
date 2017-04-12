@@ -22,6 +22,7 @@ import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
 import tech.jiangtao.backstage.model.json.Groups;
 import tech.jiangtao.backstage.model.json.Invited;
+import tech.jiangtao.backstage.model.json.Result;
 import tech.jiangtao.backstage.model.json.vCard;
 import tech.jiangtao.backstage.service.TigPairsService;
 import tech.jiangtao.backstage.service.TigUsersService;
@@ -205,5 +206,21 @@ public class TigUsersServiceImpl implements TigUsersService {
       }
     }
     return accounts;
+  }
+
+
+  @Override public Result deleteFriend(long uid, String userId) throws Exception {
+    TigPairs tigPairs = new TigPairs();
+    tigPairs.setUid(uid);
+    tigPairs.setPkey("roster");
+    TigPairs queryTigPairs = tigPairsCustomMapper.queryTigPairsFromObject(tigPairs);
+    // 转化roster->删除掉userJid的contact->保存到数据库中
+    // 1. 转换roster
+
+    // 2. 删除掉
+
+    // 3. 保存到数据库
+
+    return new Result(true,"执行成功");
   }
 }

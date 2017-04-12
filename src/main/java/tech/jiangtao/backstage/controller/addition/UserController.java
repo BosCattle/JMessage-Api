@@ -1,6 +1,8 @@
 package tech.jiangtao.backstage.controller.addition;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
@@ -14,6 +16,7 @@ import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
 import tech.jiangtao.backstage.model.json.Invited;
+import tech.jiangtao.backstage.model.json.Result;
 import tech.jiangtao.backstage.service.TigUsersService;
 
 /**
@@ -91,5 +94,25 @@ public class UserController {
       @ApiParam(required = true, name = "nickname", value = "用户昵称")
       @RequestParam("nickname") String nickname) throws Exception {
     return tigUsersService.queryAccount(nickname);
+  }
+
+  /**
+   * 删除好友
+   */
+  @RequestMapping(value = "/deleteFriend", method = RequestMethod.POST)
+  @ApiOperation(value = "删除好友", httpMethod = "POST", response = Result.class,
+      notes = "根据用户uid和好友userId删除好友")
+  @ApiImplicitParams({
+      @ApiImplicitParam(required = true, name = "userId", value = "好友userId"),
+      @ApiImplicitParam(required = true, name = "uid", value = "用户uid")}
+  )
+  public @ResponseBody Result deleteFriend(@RequestParam("uid") long uid,
+      @RequestParam("userId") String userId) {
+    try {
+      return tigUsersService.deleteFriend(uid, userId);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }

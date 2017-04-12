@@ -25,4 +25,8 @@
     UPDATE tig_pairs SET pval=#{pval} WHERE uid=#{uid} AND pkey='vCard'
   </update>
 
+  <select id="queryTigPairsFromObject" parameterType="tigPairs" resultType="tigPairs">
+    SELECT * FROM tig_pairs WHERE uid=#{uid} AND pkey=#{pkey}
+  </select>
+
 </mapper>

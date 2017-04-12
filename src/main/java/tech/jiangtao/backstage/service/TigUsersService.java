@@ -5,6 +5,7 @@ import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
 import tech.jiangtao.backstage.model.json.Invited;
+import tech.jiangtao.backstage.model.json.Result;
 
 /**
  * @class: TigUsersService </br>
@@ -25,5 +26,7 @@ public interface TigUsersService {
   public List<Invited> allInvite(String userId) throws Exception;
 
   public List<Account> queryAccount(String userId) throws Exception;
+
+  public Result deleteFriend(long uid,String userId) throws Exception;
 
 }

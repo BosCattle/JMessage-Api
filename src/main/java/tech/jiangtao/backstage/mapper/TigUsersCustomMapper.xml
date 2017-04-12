@@ -26,13 +26,13 @@
 
 
   <select id="queryFriendsResult" parameterType="java.util.List" resultMap="queryFriendsMap">
-        SELECT tig_users.uid, tig_users.user_id, tig_users.online_status, tig_pairs.nid, tig_pairs.pval
-        FROM tig_pairs, tig_users
-        WHERE pkey = 'vCard'
-        <foreach collection="list" close=")" open="  AND tig_pairs.uid IN (" separator="," item="item">
-          #{item}
-        </foreach>
-        AND tig_users.uid = tig_pairs.uid
+    SELECT tig_users.uid, tig_users.user_id, tig_users.online_status, tig_pairs.nid, tig_pairs.pval
+    FROM tig_pairs, tig_users
+    WHERE pkey = 'vCard'
+    <foreach collection="list" close=")" open="  AND tig_pairs.uid IN (" separator="," item="item">
+      #{item}
+    </foreach>
+    AND tig_users.uid = tig_pairs.uid
   </select>
 
   <select id="allInvite" parameterType="java.lang.String" resultType="tigPairs">

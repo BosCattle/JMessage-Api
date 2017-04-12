@@ -22,4 +22,6 @@ public interface TigPairsCustomMapper {
 
   public void updateTigPairs(TigPairs pairs) throws Exception;
 
+  public TigPairs queryTigPairsFromObject(TigPairs pairs) throws Exception;
+
 }
