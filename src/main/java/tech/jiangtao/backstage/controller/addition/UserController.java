@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
+import tech.jiangtao.backstage.model.json.Invited;
 import tech.jiangtao.backstage.service.TigUsersService;
 
 /**
@@ -52,6 +53,7 @@ public class UserController {
    * @return
    * @throws Exception
    */
+  // TODO: 12/04/2017 重写，返回account 
   @RequestMapping(value = "/queryUser", method = RequestMethod.POST)
   @ApiOperation(value = "查询用户自己信息", httpMethod = "POST", response = TigUsers.class,
       notes = "根据userId查询自己信息")
@@ -70,7 +72,7 @@ public class UserController {
   @RequestMapping(value = "/allInvite", method = RequestMethod.POST)
   @ApiOperation(value = "根据userId获取我的请求", httpMethod = "POST", response = Account.class,
       responseContainer = "List", notes = "根据用户userId获取我所有的邀请，比如好友邀请，群邀请等")
-  public @ResponseBody List<Account> allInvite(@ApiParam(required = true, name = "userId",
+  public @ResponseBody List<Invited> allInvite(@ApiParam(required = true, name = "userId",
       value = "用户userId") @RequestParam("userId") String userId) throws Exception {
     return tigUsersService.allInvite(userId);
   }

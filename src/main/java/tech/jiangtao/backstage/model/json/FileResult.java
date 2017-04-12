@@ -1,4 +1,4 @@
-package tech.jiangtao.backstage.model;
+package tech.jiangtao.backstage.model.json;
 
 import tech.jiangtao.backstage.utils.TransportType;
 
@@ -13,7 +13,7 @@ import tech.jiangtao.backstage.utils.TransportType;
 public class FileResult {
 
     private String resourceId;
-    private boolean isSuccess;
+    private boolean success;
     private TransportType type;
     private String errorMessage;
 
@@ -26,26 +26,26 @@ public class FileResult {
     }
 
     public boolean isSuccess() {
-        return isSuccess;
+        return success;
     }
 
     public void setSuccess(boolean success) {
-        isSuccess = success;
-    }
-
-    public void setType(TransportType type) {
-        this.type = type;
+        this.success = success;
     }
 
     public TransportType getType() {
         return type;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setType(TransportType type) {
+        this.type = type;
     }
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

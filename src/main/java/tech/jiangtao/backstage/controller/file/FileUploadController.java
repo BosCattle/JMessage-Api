@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import tech.jiangtao.backstage.model.FileResult;
+import tech.jiangtao.backstage.model.json.FileResult;
 import tech.jiangtao.backstage.utils.TransportType;
 
 import java.io.BufferedOutputStream;
@@ -49,7 +49,7 @@ public class FileUploadController {
       @ApiParam(required = true, name = "file", value = "文件") @RequestParam("file")
           MultipartFile file,
       @ApiParam(required = true, name = "type", value = "文件类型") @RequestParam("type")
-          TransportType type) {
+          String type) {
     String name = file.getOriginalFilename();
     String resourceId =
         UUID.randomUUID().toString() + name.substring(name.indexOf("."), name.length());
@@ -69,7 +69,7 @@ public class FileUploadController {
             + serverFile.getAbsolutePath());
         result.setResourceId(resourceId);
         result.setSuccess(true);
-        result.setType(type);
+        result.setType(TransportType.fromValue(type));
         return result;
       } catch (Exception e) {
         result.setSuccess(false);
@@ -96,7 +96,7 @@ public class FileUploadController {
       @ApiParam(required = true, name = "files", value = "文件列表") @RequestParam("files")
           MultipartFile[] files,
       @ApiParam(required = true, name = "types", value = "文件类型") @RequestParam("types")
-          TransportType[] types) {
+          String[] types) {
     List<FileResult> results = new ArrayList<>();
     FileResult fileResult = new FileResult();
     fileResult.setErrorMessage("文件总数与类型总数不匹配");
@@ -111,7 +111,7 @@ public class FileUploadController {
       try {
         byte[] bytes = file.getBytes();
         String rootPath = System.getProperty("catalina.home");
-        TransportType type = types[i];
+        String type = types[i];
         File dir = createFile(rootPath, type);
         String name = file.getOriginalFilename();
         String resourceId =
@@ -125,7 +125,7 @@ public class FileUploadController {
         logger.info("文件位置=" + serverFile.getAbsolutePath());
         result.setResourceId(resourceId);
         result.setSuccess(true);
-        result.setType(type);
+        result.setType(TransportType.fromValue(type));
         results.add(result);
       } catch (Exception e) {
         e.printStackTrace();
@@ -138,17 +138,17 @@ public class FileUploadController {
     return results;
   }
 
-  private File createFile(String rootPath, TransportType type) {
+  private File createFile(String rootPath, String type) {
     File dir = null;
-    if (type == TransportType.AVATAR) {
+    if (TransportType.fromValue(type) == TransportType.AVATAR) {
       dir = new File(rootPath + File.separator + "webapps/resource" + "/avatar");
-    } else if (type == TransportType.IMAGE) {
+    } else if (TransportType.fromValue(type) == TransportType.IMAGE) {
       dir = new File(rootPath + File.separator + "webapps/resource" + "/image");
-    } else if (type == TransportType.AUDIO) {
+    } else if (TransportType.fromValue(type) == TransportType.AUDIO) {
       dir = new File(rootPath + File.separator + "webapps/resource" + "/audio");
-    } else if (type == TransportType.VIDEO) {
+    } else if (TransportType.fromValue(type) == TransportType.VIDEO) {
       dir = new File(rootPath + File.separator + "webapps/resource" + "/video");
-    } else if (type == TransportType.FILE) {
+    } else if (TransportType.fromValue(type) == TransportType.FILE) {
       dir = new File(rootPath + File.separator + "webapps/resource" + "/file");
     }
     if (dir != null && !dir.exists()) dir.mkdirs();

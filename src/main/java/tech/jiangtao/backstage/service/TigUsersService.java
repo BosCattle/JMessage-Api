@@ -4,6 +4,7 @@ import java.util.List;
 import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
+import tech.jiangtao.backstage.model.json.Invited;
 
 /**
  * @class: TigUsersService </br>
@@ -21,7 +22,7 @@ public interface TigUsersService {
 
   public List<Friends> queryUserFriends(String userId) throws Exception;
 
-  public List<Account> allInvite(String userId) throws Exception;
+  public List<Invited> allInvite(String userId) throws Exception;
 
   public List<Account> queryAccount(String userId) throws Exception;
 }

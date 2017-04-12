@@ -16,6 +16,8 @@ import tech.jiangtao.backstage.model.TigUsersCustomVo;
 import tech.jiangtao.backstage.model.TigUsersExample;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.Friends;
+import tech.jiangtao.backstage.model.json.Groups;
+import tech.jiangtao.backstage.model.json.Invited;
 import tech.jiangtao.backstage.service.TigUsersService;
 import tech.jiangtao.backstage.utils.InviteType;
 
@@ -97,31 +99,39 @@ public class TigUsersServiceImpl implements TigUsersService {
     return null;
   }
 
-  @Override public List<Account> allInvite(String userId) throws Exception {
+  @Override public List<Invited> allInvite(String userId) throws Exception {
     TigPairs tigPairs = tigUsersCustomMapper.allInvite(userId);
-    List<Account> accounts = new ArrayList<>();
+    List<Invited> accounts = new ArrayList<>();
     JSONObject json = XML.toJSONObject(tigPairs.getPval(), true);
     Object objects = new JSONTokener(json.optString("contact")).nextValue();
     if (objects instanceof JSONObject) {
       JSONObject object = json.getJSONObject("contact");
       Account account = new Account();
+      Invited invited = new Invited();
       account.setNickName(object.getString("name"));
       account.setUserId(object.getString("jid"));
       account.setRelative(false);
       account.setAvatar(null);
       account.setInviteType(InviteType.FRIEND);
-      accounts.add(account);
+      invited.setAccount(account);
+      Groups groups = new Groups();
+      invited.setGroup(groups);
+      accounts.add(invited);
     } else if (objects instanceof JSONArray) {
       JSONArray array = json.getJSONArray("contact");
       for (int i = 0; i < array.length(); i++) {
         JSONObject object = (JSONObject) array.get(i);
         Account account = new Account();
+        Invited invited = new Invited();
         account.setNickName(object.getString("name"));
         account.setUserId(object.getString("jid"));
         account.setRelative(false);
         account.setAvatar(null);
         account.setInviteType(InviteType.FRIEND);
-        accounts.add(account);
+        invited.setAccount(account);
+        Groups groups = new Groups();
+        invited.setGroup(groups);
+        accounts.add(invited);
       }
     }
 
