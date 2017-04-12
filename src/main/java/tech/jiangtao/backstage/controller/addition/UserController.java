@@ -24,7 +24,7 @@ import tech.jiangtao.backstage.service.TigUsersService;
  * Date: 2017/2/21 11:28 </br>
  * Update: 2017/2/21 11:28 </br>
  **/
-@Api(value = "用户",description = "与用户相关的接口",tags = "用户")
+@Api(value = "用户", description = "与用户相关的接口", tags = "用户")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -42,31 +42,33 @@ public class UserController {
   @ApiOperation(value = "根据用户userId获取用户好友列表", httpMethod = "POST", response = Friends.class,
       responseContainer = "List", notes = "根据用户userId获取用户好友列表")
   public @ResponseBody List<Friends> queryUserList(
-      @ApiParam(required = true, name = "userId", value = "用户userId") @RequestParam("userId") String userId)
-      throws Exception {
-    return tigUsersService.queryUserFriends(userId);
+      @ApiParam(required = true, name = "userId", value = "用户userId") @RequestParam("userId")
+          String userId) {
+    try {
+      return tigUsersService.queryUserFriends(userId);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
   /**
    * 根据用户jid查询用户自己的信息
-   * @param userId
-   * @return
+   *
    * @throws Exception
    */
-  // TODO: 12/04/2017 重写，返回account 
   @RequestMapping(value = "/queryUser", method = RequestMethod.POST)
-  @ApiOperation(value = "查询用户自己信息", httpMethod = "POST", response = TigUsers.class,
+  @ApiOperation(value = "查询用户自己信息", httpMethod = "POST", response = Account.class,
       notes = "根据userId查询自己信息")
-  public @ResponseBody TigUsers queryUser(
-      @ApiParam(required = true, name = "userId", value = "用户usrId")
+  public @ResponseBody Account queryUser(
+      @ApiParam(required = true, name = "userId", value = "用户userId")
       @RequestParam("userId") String userId) throws Exception {
     return tigUsersService.queryUser(userId);
   }
 
   /**
    * 获取我的所有邀请
-   * @param userId
-   * @return
+   *
    * @throws Exception
    */
   @RequestMapping(value = "/allInvite", method = RequestMethod.POST)
@@ -79,15 +81,15 @@ public class UserController {
 
   /**
    * 根据昵称查询用户
-   * @param nickname
-   * @return
+   *
    * @throws Exception
    */
   @RequestMapping(value = "/queryAccount", method = RequestMethod.GET)
   @ApiOperation(value = "根据昵称查询用户", httpMethod = "GET", response = Account.class,
       responseContainer = "List", notes = "根据用户昵称查询用户信息")
-  public @ResponseBody List<Account> queryAccount(@ApiParam(required = true, name = "nickname", value = "用户昵称")
-  @RequestParam("nickname") String nickname) throws Exception {
+  public @ResponseBody List<Account> queryAccount(
+      @ApiParam(required = true, name = "nickname", value = "用户昵称")
+      @RequestParam("nickname") String nickname) throws Exception {
     return tigUsersService.queryAccount(nickname);
   }
 }

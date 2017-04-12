@@ -18,11 +18,12 @@ public interface TigUsersService {
 
   public List<TigUsers> queryUserList(String userId) throws Exception;
 
-  public TigUsers queryUser(String userId) throws Exception;
+  public Account queryUser(String userId) throws Exception;
 
   public List<Friends> queryUserFriends(String userId) throws Exception;
 
   public List<Invited> allInvite(String userId) throws Exception;
 
   public List<Account> queryAccount(String userId) throws Exception;
+
 }

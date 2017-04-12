@@ -12,6 +12,7 @@
     </association>
     <association property="tigUsersCustom" javaType="tigUsersCustom">
       <result column="userID" property="uid"/>
+      <result column="nid" property="nid"/>
       <result column="pkey" property="pkey"/>
       <result column="pval" property="pval"/>
     </association>
@@ -25,7 +26,7 @@
 
 
   <select id="queryFriendsResult" parameterType="java.util.List" resultMap="queryFriendsMap">
-        SELECT tig_users.user_id, tig_users.online_status, tig_pairs.pval
+        SELECT tig_users.uid, tig_users.user_id, tig_users.online_status, tig_pairs.nid, tig_pairs.pval
         FROM tig_pairs, tig_users
         WHERE pkey = 'vCard'
         <foreach collection="list" close=")" open="  AND tig_pairs.uid IN (" separator="," item="item">
