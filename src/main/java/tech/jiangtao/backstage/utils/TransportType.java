@@ -9,10 +9,10 @@ package tech.jiangtao.backstage.utils;
  * Update: 2017/2/21 11:28 </br>
  **/
 public enum TransportType {
+    AVATAR("avatar"),
     IMAGE("image"),
     AUDIO("audio"),
-    VEDIO("video"),
-    AVATAR("avatar"),
+    VIDEO("video"),
     FILE("file");
     private final String text;
 
