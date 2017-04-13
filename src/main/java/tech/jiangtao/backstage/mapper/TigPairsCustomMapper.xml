@@ -16,7 +16,6 @@
     )
   </insert>
 
-
   <select id="queryTigPairs" parameterType="java.lang.Long" resultType="tigPairs">
     SELECT * FROM tig_pairs WHERE uid=#{uid} AND pkey='vCard'
   </select>
@@ -27,6 +26,14 @@
 
   <select id="queryTigPairsFromObject" parameterType="tigPairs" resultType="tigPairs">
     SELECT * FROM tig_pairs WHERE uid=#{uid} AND pkey=#{pkey}
+  </select>
+
+  <select id="queryTigPairsListByUidAndRoster" parameterType="tigPairs" resultType="tigPairs">
+    SELECT * FROM tig_pairs WHERE
+    <foreach collection="list" close=")" open=" tig_pairs.uid IN (" separator="," item="item">
+      #{item}
+    </foreach>
+    AND pkey='vCard'
   </select>
 
 </mapper>

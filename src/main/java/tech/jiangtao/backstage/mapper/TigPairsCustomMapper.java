@@ -7,7 +7,7 @@ import tech.jiangtao.backstage.model.TigPairs;
 import tech.jiangtao.backstage.model.TigUsersCustomVo;
 
 /**
- * @class:  </br>
+ * @class: </br>
  * @description: 自定义查询 </br>
  * @creator: kevin </br>
  * @email: jiangtao103cp@gmail.com </br>
@@ -24,4 +24,5 @@ public interface TigPairsCustomMapper {
 
   public TigPairs queryTigPairsFromObject(TigPairs pairs) throws Exception;
 
+  public List<TigPairs> queryTigPairsListByUidAndRoster(List<Long> uids) throws Exception;
 }

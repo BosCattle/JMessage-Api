@@ -3,6 +3,7 @@ package tech.jiangtao.backstage.service.serviceImpl;
 import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,7 +146,11 @@ public class TigAccountServiceImpl implements TigAccountService {
     account.setNickName(vCard.getNICKNAME());
     account.setSignature(vCard.getSIGNATURE());
     account.setAvatar(vCard.AVATAR);
-    account.setSex(!vCard.getSEX().equals("男"));
+    if (vCard.getSEX()!=null&& !Objects.equals(vCard.getSEX(), "")) {
+      account.setSex(!vCard.getSEX().equals("男"));
+    }else {
+      account.setSex(false);
+    }
     account.setUserId(userJid);
     return account;
   }

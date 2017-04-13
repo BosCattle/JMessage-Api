@@ -193,18 +193,33 @@ public class TigUsersServiceImpl implements TigUsersService {
   @Override public List<Account> queryAccount(String nickname) throws Exception {
     List<Account> accounts = new ArrayList<>();
     TigUsersExample example = new TigUsersExample();
-    TigUsersExample.Criteria criteriaexample =
-        example.createCriteria().andUserIdLike("%" + nickname + "%");
+    example.createCriteria().andUserIdLike("%" + nickname + "%");
     List<TigUsers> tigUserses = tigUsersMapper.selectByExample(example);
-    if (tigUserses != null && tigUserses.size() > 0) {
-      for (TigUsers users : tigUserses) {
-        Account account = new Account();
-        account.setAvatar(null);
-        account.setNickName(users.getUserId().substring(0, users.getUserId().indexOf("@")));
-        account.setUserId(users.getUserId());
-        account.setRelative(false);
-        accounts.add(account);
+    List<Long> ids = new ArrayList<>();
+    for (TigUsers pairs : tigUserses) {
+      ids.add(pairs.getUid());
+    }
+    List<TigPairs> uids = tigPairsCustomMapper.queryTigPairsListByUidAndRoster(ids);
+    for (TigPairs pairs : uids) {
+      String pval = pairs.getPval();
+      JSONObject object = XML.toJSONObject(pval);
+      JSONObject vCardObject = object.getJSONObject("vCard");
+      Gson gson = new Gson();
+      vCard vCard = gson.fromJson(vCardObject.toString(), vCard.class);
+      Account account = new Account();
+      for (TigUsers user : tigUserses) {
+        if (Objects.equals(pairs.getUid(), user.getUid())) {
+          account.setUserId(user.getUserId());
+        }
       }
+      account.setSex(vCard.getSEX() != null && vCard.getSEX().equals("女"));
+      account.setNid(pairs.getNid());
+      account.setUid(pairs.getUid());
+      account.setSignature(vCard.getSIGNATURE());
+      account.setNickName(vCard.getNICKNAME());
+      account.setAvatar(vCard.getAVATAR());
+      account.setRelative(false);
+      accounts.add(account);
     }
     return accounts;
   }
@@ -221,7 +236,7 @@ public class TigUsersServiceImpl implements TigUsersService {
     for (int size = 0; size < array.length(); size++) {
       JSONObject object = new JSONObject(array.getJSONObject(size));
       if (object.getString("jid").equals(userId)) {
-        
+
       }
     }
     // 2. 删除掉

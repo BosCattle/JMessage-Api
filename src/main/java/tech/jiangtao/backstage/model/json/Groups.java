@@ -21,6 +21,15 @@ public class Groups {
   private String owner;
   private List<User> members;
   private String node;
+  private String avatar;
+
+  public String getAvatar() {
+    return avatar;
+  }
+
+  public void setAvatar(String avatar) {
+    this.avatar = avatar;
+  }
 
   public String getNode() {
     return node;

@@ -1,10 +1,11 @@
 package tech.jiangtao.backstage.service;
 
+import java.util.List;
 import tech.jiangtao.backstage.model.TigPairs;
 
 /**
  * @class: TigPairsService </br>
- * @description:  </br>
+ * @description: </br>
  * @creator: kevin </br>
  * @email: jiangtao103cp@gmail.com </br>
  * @date: 12/04/2017 8:31 PM</br>
@@ -12,5 +13,6 @@ import tech.jiangtao.backstage.model.TigPairs;
  **/
 public interface TigPairsService {
 
-  public TigPairs queryTigPairs(long uid,String pkey) throws Exception;
+  public TigPairs queryTigPairs(long uid, String pkey) throws Exception;
+
 }

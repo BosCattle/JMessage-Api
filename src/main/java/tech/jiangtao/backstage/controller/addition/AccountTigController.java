@@ -66,7 +66,7 @@ public class AccountTigController {
       notes = "用户资料更新")
   public @ResponseBody Account updateAccount(
       @ApiParam(required = true, name = "uid", value = "用户唯一标识uid") @RequestParam("uid") long uid,
-      @ApiParam(name = "userJid", value = "用户userId") @RequestParam("uid") String userJid,
+      @ApiParam(name = "userJid", value = "用户userId") @RequestParam("userJid") String userJid,
       @ApiParam(name = "nickName", value = "用户昵称") String nickName,
       @ApiParam(name = "avatar", value = "用户头像") String avatar,
       @ApiParam(name = "sex", value = "性别,0:男，1:女") boolean sex,

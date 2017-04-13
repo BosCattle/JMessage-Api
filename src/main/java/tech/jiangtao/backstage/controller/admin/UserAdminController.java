@@ -1,6 +1,7 @@
 package tech.jiangtao.backstage.controller.admin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +24,9 @@ public class UserAdminController {
     return new ModelAndView();
   }
 
-  @RequestMapping("/login")
-  public ModelAndView login(User user) {
-    ModelAndView modelAndView = new ModelAndView();
-    modelAndView.setViewName("login");
-    return new ModelAndView();
+  @RequestMapping(value = "/login",method = RequestMethod.GET)
+  public String login(Model model,User user) {
+    model.addAttribute("user",user);
+    return "login";
   }
 }
