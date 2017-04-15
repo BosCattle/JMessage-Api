@@ -11,7 +11,7 @@ package tech.jiangtao.backstage.model.json;
 public class Invited {
 
   public Account account;
-  public Groups group;
+  public ChatRoom group;
 
   public Account getAccount() {
     return account;
@@ -21,11 +21,11 @@ public class Invited {
     this.account = account;
   }
 
-  public Groups getGroup() {
+  public ChatRoom getGroup() {
     return group;
   }
 
-  public void setGroup(Groups group) {
+  public void setGroup(ChatRoom group) {
     this.group = group;
   }
 }

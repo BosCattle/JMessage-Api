@@ -19,13 +19,11 @@ import tech.jiangtao.backstage.model.TigUsers;
 import tech.jiangtao.backstage.model.TigUsersCustomVo;
 import tech.jiangtao.backstage.model.TigUsersExample;
 import tech.jiangtao.backstage.model.json.Account;
-import tech.jiangtao.backstage.model.json.Contact;
 import tech.jiangtao.backstage.model.json.Friends;
-import tech.jiangtao.backstage.model.json.Groups;
+import tech.jiangtao.backstage.model.json.ChatRoom;
 import tech.jiangtao.backstage.model.json.Invited;
 import tech.jiangtao.backstage.model.json.Result;
 import tech.jiangtao.backstage.model.json.vCard;
-import tech.jiangtao.backstage.service.TigPairsService;
 import tech.jiangtao.backstage.service.TigUsersService;
 import tech.jiangtao.backstage.utils.InviteType;
 
@@ -166,7 +164,7 @@ public class TigUsersServiceImpl implements TigUsersService {
       account.setAvatar(null);
       account.setInviteType(InviteType.FRIEND);
       invited.setAccount(account);
-      Groups groups = new Groups();
+      ChatRoom groups = new ChatRoom();
       invited.setGroup(groups);
       accounts.add(invited);
     } else if (objects instanceof JSONArray) {
@@ -181,7 +179,7 @@ public class TigUsersServiceImpl implements TigUsersService {
         account.setAvatar(null);
         account.setInviteType(InviteType.FRIEND);
         invited.setAccount(account);
-        Groups groups = new Groups();
+        ChatRoom groups = new ChatRoom();
         invited.setGroup(groups);
         accounts.add(invited);
       }

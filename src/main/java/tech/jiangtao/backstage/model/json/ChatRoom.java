@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * @class: Groups </br>
- * @description: 群组 </br>
+ * @class: ChatRoom </br>
+ * @description: 聊天室 </br>
  * @creator: kevin </br>
  * @email: jiangtao103cp@gmail.com </br>
  * @date: 2017/3/31 下午9:27</br>
  * @version: 0.0.1 </br>
  **/
-public class Groups {
+public class ChatRoom {
 
   public String creator;
   private Timestamp createDate;
