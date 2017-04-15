@@ -3,7 +3,6 @@ package tech.jiangtao.backstage.mapper;
 import java.util.List;
 import java.util.Map;
 import tech.jiangtao.backstage.model.TigPairs;
-import tech.jiangtao.backstage.model.TigUsersCustom;
 import tech.jiangtao.backstage.model.TigUsersCustomVo;
 
 /**

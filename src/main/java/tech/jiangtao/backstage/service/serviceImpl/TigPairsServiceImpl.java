@@ -1,7 +1,6 @@
 package tech.jiangtao.backstage.service.serviceImpl;
 
 import java.util.List;
-import org.apache.commons.beanutils.NestedNullException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.jiangtao.backstage.mapper.TigPairsMapper;

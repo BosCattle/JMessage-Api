@@ -2,7 +2,6 @@ package tech.jiangtao.backstage.mapper;
 
 import java.util.List;
 import tech.jiangtao.backstage.model.TigPairs;
-import tech.jiangtao.backstage.model.TigUsersCustomVo;
 
 /**
  * @class:  </br>

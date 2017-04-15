@@ -1,6 +1,5 @@
 package tech.jiangtao.backstage.service;
 
-import java.util.List;
 import tech.jiangtao.backstage.model.TigPairs;
 
 /**
