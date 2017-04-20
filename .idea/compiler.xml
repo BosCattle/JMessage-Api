@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="JMessage-Api" />
         <module name="SpringMVC-Architecture" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="JMessage-Api" target="1.8" />
       <module name="SpringMVC-Architecture" target="1.8" />
     </bytecodeTargetLevel>
   </component>

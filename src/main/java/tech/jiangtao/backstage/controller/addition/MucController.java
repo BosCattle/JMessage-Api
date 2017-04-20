@@ -28,7 +28,7 @@ import tech.jiangtao.backstage.service.TigMucService;
 public class MucController {
 
   @Autowired
-  private TigMucService tigGroupService;
+  private TigMucService tigMucService;
 
   /**
    * 根据用户id查询用户加入的聊天室
@@ -40,7 +40,7 @@ public class MucController {
       @ApiParam(required = true, name = "uid", value = "用户唯一标识userId") @RequestParam("uid")
           String uid) {
     try {
-      return tigGroupService.findOwnerGroups(uid);
+      return tigMucService.findOwnerGroups(uid);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -57,7 +57,7 @@ public class MucController {
       @ApiParam(required = true, name = "roomName", value = "聊天室名") @RequestParam("roomName")
           String roomName) {
     try {
-      return tigGroupService.findSearchRootName(roomName);
+      return tigMucService.findSearchRootName(roomName);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -106,6 +106,6 @@ public class MucController {
     if (uid==null){
       return null;
     }
-    return tigGroupService.findMucHistory(uid,page);
+    return tigMucService.findMucHistory(uid,page);
   }
 }

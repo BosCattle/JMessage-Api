@@ -22,7 +22,7 @@ import tech.jiangtao.backstage.service.TigMucService;
  * @date: 2017/3/31 下午9:43</br>
  * @version: 0.0.1 </br>
  **/
-@Service("tigGroupService")
+@Service("tigMucService")
 public class TigMucServiceImpl implements TigMucService {
 
   @Autowired

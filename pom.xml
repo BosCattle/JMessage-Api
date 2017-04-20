@@ -6,7 +6,7 @@
   <artifactId>tigase</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>SpringMVC-Architecture</name>
+  <name>JMessage-Api</name>
   <url>http://maven.apache.org</url>
 
   <properties>

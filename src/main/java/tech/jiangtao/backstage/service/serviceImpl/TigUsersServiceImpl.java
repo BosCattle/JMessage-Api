@@ -63,7 +63,7 @@ public class TigUsersServiceImpl implements TigUsersService {
   }
 
   /**
-   * 获取用户自己的信息
+   * 根据用户userId获取用户信息
    *
    * @throws Exception
    */
