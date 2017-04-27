@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
     http://www.springframework.org/schema/context
@@ -15,10 +16,11 @@
     http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
   <context:component-scan base-package="tech.jiangtao.backstage.mapper"/>
+  <context:component-scan base-package="tech.jiangtao.backstage" annotation-config="true"/>
   <context:component-scan base-package="tech.jiangtao.backstage.service.serviceImpl"/>
 
   <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="location" value="/WEB-INF/jdbc.properties"/>
+    <property name="location" value="WEB-INF/jdbc.properties"/>
   </bean>
 
   <!-- mysql数据源-->
@@ -45,7 +47,7 @@
   <!-- 配置mybatis的sqlSessionFactory -->
   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="mySqlDataSource"/>
-    <property name="configLocation" value="/WEB-INF/mybatis-config.xml"/>
+    <property name="configLocation" value="WEB-INF/mybatis-config.xml"/>
   </bean>
 
   <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
@@ -89,4 +91,34 @@
         expression="execution(* tech.jiangtao.backstage.service.*.*(..))" />
     <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
   </aop:config>
+
+<!--Redis配置-->
+  <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+    <property name="maxTotal" value="${redis.maxTotal}"/>
+    <property name="maxIdle" value="${redis.maxIdle}"/>
+    <property name="minIdle" value="${redis.minIdle}"/>
+    <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+    <property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}"/>
+    <property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}"/>
+    <property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}"/>
+    <property name="testOnBorrow" value="true"/>
+    <property name="testOnReturn" value="true"/>
+    <property name="testWhileIdle" value="true"/>
+  </bean>
+
+  <bean id="jedisConnectionFactory"
+      class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+      destroy-method="destroy">
+    <property name="hostName" value="${redis.hostName}"/>
+    <property name="port" value="${redis.port}"/>
+    <property name="timeout" value="${redis.timeout}"/>
+    <property name="database" value="${redis.database}"/>
+    <property name="password" value="${redis.password}"/>
+    <property name="usePool" value="true"/>
+    <property name="poolConfig" ref="jedisPoolConfig"/>
+  </bean>
+
+  <bean id="redisTemplate"
+      class="org.springframework.data.redis.core.RedisTemplate"
+      p:connection-factory-ref="jedisConnectionFactory"/>
 </beans>

@@ -13,6 +13,8 @@ import tech.jiangtao.backstage.mapper.TigPairsCustomMapper;
 import tech.jiangtao.backstage.mapper.TigPairsMapper;
 import tech.jiangtao.backstage.mapper.TigUsersCustomMapper;
 import tech.jiangtao.backstage.mapper.TigUsersMapper;
+import tech.jiangtao.backstage.redis.TokenManager;
+import tech.jiangtao.backstage.model.json.TokenModel;
 import tech.jiangtao.backstage.model.TigNodes;
 import tech.jiangtao.backstage.model.TigPairs;
 import tech.jiangtao.backstage.model.TigUsers;
@@ -46,6 +48,9 @@ public class TigAccountServiceImpl implements TigAccountService {
 
   @Autowired
   private TigPairsMapper tigPairsMapper;
+
+  @Autowired
+  private TokenManager tokenManager;
 
   /**
    * 先插node，再插pair
@@ -100,6 +105,8 @@ public class TigAccountServiceImpl implements TigAccountService {
     account.setNickName(nickName);
     account.setSex(sex);
     account.setSignature(signature);
+    TokenModel model = tokenManager.createToken(new Long(account.getNid()).intValue());
+    account.setToken(model.getToken());
     return account;
   }
 
@@ -146,9 +153,9 @@ public class TigAccountServiceImpl implements TigAccountService {
     account.setNickName(vCard.getNICKNAME());
     account.setSignature(vCard.getSIGNATURE());
     account.setAvatar(vCard.AVATAR);
-    if (vCard.getSEX()!=null&& !Objects.equals(vCard.getSEX(), "")) {
+    if (vCard.getSEX() != null && !Objects.equals(vCard.getSEX(), "")) {
       account.setSex(!vCard.getSEX().equals("男"));
-    }else {
+    } else {
       account.setSex(false);
     }
     account.setUserId(userJid);

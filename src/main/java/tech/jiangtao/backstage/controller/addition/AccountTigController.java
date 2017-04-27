@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.service.TigAccountService;
+import tech.jiangtao.backstage.utils.Authorization;
 
 /**
  * @class: CommonController </br>
@@ -23,7 +25,7 @@ import tech.jiangtao.backstage.service.TigAccountService;
  * @version: 0.0.1 </br>
  **/
 
-@Api(value = "账户",description = "与账户相关的接口",tags = "账户")
+@Api(value = "账户", description = "与账户相关的接口", tags = "账户")
 @RestController
 @RequestMapping("/account")
 public class AccountTigController {
@@ -37,25 +39,23 @@ public class AccountTigController {
   @RequestMapping(value = "/create", method = RequestMethod.POST)
   @ApiOperation(value = "用户注册", httpMethod = "POST", response = Account.class,
       notes = "用户注册")
-  @ApiImplicitParams({
-      @ApiImplicitParam(required = true, name = "userJid", value = "用户userId"),
-      @ApiImplicitParam(required = true, name = "nickName", value = "用户昵称"),
-      @ApiImplicitParam(required = true, name = "password", value = "密码"),
-      @ApiImplicitParam(required = true, name = "avatar", value = "用户头像"),
-      @ApiImplicitParam(required = true, name = "sex", value = "性别"),
-      @ApiImplicitParam(required = true, name = "signature", value = "个性签名")
-  })
   public @ResponseBody Account createAccount(
-      @RequestParam("userJid") String userJid,
-      @RequestParam("nickName") String nickName,
-      @RequestParam("password") String password, String avatar, boolean sex, String signature)
+      @ApiParam(required = true, name = "userJid", value = "用户userId") @RequestParam("userJid")
+          String userJid,
+      @ApiParam(required = true, name = "nickName", value = "用户昵称") @RequestParam("nickName")
+          String nickName,
+      @ApiParam(required = true, name = "password", value = "密码") @RequestParam("password")
+          String password,
+      @ApiParam(name = "avatar", value = "用户头像") String avatar,
+      @ApiParam(name = "sex", value = "性别") boolean sex,
+      @ApiParam(name = "signature", value = "个性签名") String signature,
+      HttpServletResponse response)
       throws Exception {
-    try {
-      return tigAccountService.insertAccount(userJid, nickName, avatar, sex, signature, password);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return null;
+    System.out.println(userJid);
+    Account account =
+        tigAccountService.insertAccount(userJid, nickName, avatar, sex, signature, password);
+    response.setHeader(Authorization.AUTHORIZATION, account.getNid() + "-" + account.getToken());
+    return account;
   }
 
   /**

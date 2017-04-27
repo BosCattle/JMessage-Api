@@ -23,6 +23,19 @@ public class Account implements Serializable {
   private String signature;
   // 0: Nan 1:NV
   private boolean sex;
+  private String token;
+
+  public boolean isSex() {
+    return sex;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
+  }
 
   public long getNid() {
     return nid;
