@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 import tech.jiangtao.backstage.model.json.User;
 
 /**
@@ -17,6 +18,7 @@ import tech.jiangtao.backstage.model.json.User;
  * @version: 0.0.1 </br>
  **/
 @Controller
+@ApiIgnore
 public class UserAdminController {
 
   @RequestMapping(value = "/batchAddUser",method = RequestMethod.POST)

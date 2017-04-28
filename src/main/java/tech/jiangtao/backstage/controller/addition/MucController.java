@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 import tech.jiangtao.backstage.model.MucHistory;
 import tech.jiangtao.backstage.model.json.ChatRoom;
 import tech.jiangtao.backstage.service.TigMucService;
@@ -23,6 +24,7 @@ import tech.jiangtao.backstage.service.TigMucService;
  * @version: 0.0.1 </br>
  **/
 @Api(value = "聊天室",description = "聊天室相关的接口",tags = "聊天室")
+@ApiIgnore
 @RestController
 @RequestMapping("/muc")
 public class MucController {

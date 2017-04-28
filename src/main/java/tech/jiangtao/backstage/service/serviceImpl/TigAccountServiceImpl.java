@@ -22,6 +22,7 @@ import tech.jiangtao.backstage.model.TigUsersExample;
 import tech.jiangtao.backstage.model.json.Account;
 import tech.jiangtao.backstage.model.json.vCard;
 import tech.jiangtao.backstage.service.TigAccountService;
+import tech.jiangtao.backstage.utils.MD5Utils;
 
 /**
  * @class: TigAccountServiceImpl </br>
@@ -63,6 +64,8 @@ public class TigAccountServiceImpl implements TigAccountService {
     Account account = new Account();
     // 在user表中插入数据，并且在node表中插入了roster节点，即contact节点信息。
     HashMap<String, String> paramMap = new HashMap<>();
+    // 对密码进行解密
+    //String psd = MD5Utils.decrypt(password,MD5Utils.getDESKey(userJid.getBytes()),userJid);
     paramMap.put("uid", userJid);
     paramMap.put("password", password);
     tigUsersCustomMapper.insertUser(paramMap);
