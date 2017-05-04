@@ -29,7 +29,8 @@ public class CommonController {
   @ApiOperation(value = "根据用户userId获取聊天历史", httpMethod = "POST", response = Friends.class,
       responseContainer = "List", notes = "根据用户userId获取聊天历史")
   public @ResponseBody List<Friends> queryUserList(
-      @ApiParam(required = true, name = "userId", value = "用户userId") @RequestParam("userId") String userId)
+      @ApiParam(required = true, name = "userId", value = "用户userId") @RequestParam("userId") String userId,
+      @ApiParam(required = true, name = "otherSideId", value = "对方的jid，群聊即填写群聊的jid") @RequestParam("otherSideId") String otherSideId)
       throws Exception {
     return null;
   }
