@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="tech.jiangtao.backstage.mapper.TigMaMsgsCustomMapper" >
-  <select id="queryChatHistory" parameterType="map" resultMap="TigMaMsgsWithBLOBs">
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tech.jiangtao.backstage.mapper.TigMaMsgsCustomMapper">
+  <select id="queryChatHistory" parameterType="map" resultType="tigMaMsgsWithBLOBs">
+    SELECT DISTINCT msg_id, owner_id, buddy_id, ts, direction
+	, TYPE, body, msg
+FROM tig_ma_msgs msg, tig_ma_jids jids
+WHERE owner_id = (
+		SELECT jid_id
+		FROM tig_ma_jids
+		WHERE jid = #{userId}
+		)
+	AND buddy_id = (
+		SELECT jid_id
+		FROM tig_ma_jids
+		WHERE jid = #{otherSideId}
+		)
+	OR owner_id = (
+		SELECT jid_id
+		FROM tig_ma_jids
+		WHERE jid = #{otherSideId}
+		)
+	AND buddy_id = (
+		SELECT jid_id
+		FROM tig_ma_jids
+		WHERE jid = #{userId}
+		)
+LIMIT #{offset}, #{limit}
   </select>
 </mapper>

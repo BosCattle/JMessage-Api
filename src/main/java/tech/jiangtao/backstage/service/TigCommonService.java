@@ -13,8 +13,7 @@ import tech.jiangtao.backstage.model.json.MessageRealm;
  **/
 public interface TigCommonService {
 
-  public List<MessageRealm> queryChatHistory(String userId, String otherSideId, int offset,
-      int limit) throws Exception;
+  public List<MessageRealm> queryChatHistory(String userId, String otherSideId, int page) throws Exception;
 
   public List<MessageRealm> queryChatHistoryByDate(long date, String userId, String otherSideId,
       int offset,
