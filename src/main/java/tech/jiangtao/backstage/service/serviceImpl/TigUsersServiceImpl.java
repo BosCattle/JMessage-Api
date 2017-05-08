@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -149,6 +150,11 @@ public class TigUsersServiceImpl implements TigUsersService {
     return null;
   }
 
+  /**
+   * 获取我的好友请求
+   *
+   * @throws Exception
+   */
   @Override public List<Invited> allInvite(String userId) throws Exception {
     TigPairs tigPairs = tigUsersCustomMapper.allInvite(userId);
     List<Invited> accounts = new ArrayList<>();
@@ -158,34 +164,30 @@ public class TigUsersServiceImpl implements TigUsersService {
       JSONObject object = json.getJSONObject("contact");
       Account account = new Account();
       Invited invited = new Invited();
-      account.setNickName(object.getString("name"));
-      account.setUserId(object.getString("jid"));
-      account.setRelative(false);
-      account.setAvatar(null);
-      account.setInviteType(InviteType.FRIEND);
-      invited.setAccount(account);
-      ChatRoom groups = new ChatRoom();
-      invited.setGroup(groups);
-      accounts.add(invited);
+      addRequest(object, account, accounts, invited);
     } else if (objects instanceof JSONArray) {
       JSONArray array = json.getJSONArray("contact");
       for (int i = 0; i < array.length(); i++) {
         JSONObject object = (JSONObject) array.get(i);
         Account account = new Account();
         Invited invited = new Invited();
-        account.setNickName(object.getString("name"));
-        account.setUserId(object.getString("jid"));
-        account.setRelative(false);
-        account.setAvatar(null);
-        account.setInviteType(InviteType.FRIEND);
-        invited.setAccount(account);
-        ChatRoom groups = new ChatRoom();
-        invited.setGroup(groups);
-        accounts.add(invited);
+        addRequest(object, account, accounts, invited);
       }
     }
-
     return accounts;
+  }
+
+  private void addRequest(JSONObject object, Account account, List<Invited> accounts,
+      Invited invited) {
+    if (object.getString("subs").equals("none_pending_out")) {
+      account.setNickName(object.getString("name"));
+      account.setUserId(object.getString("jid"));
+      account.setRelative(false);
+      account.setAvatar(null);
+      account.setInviteType(InviteType.FRIEND);
+      invited.setAccount(account);
+      accounts.add(invited);
+    }
   }
 
   @Override public List<Account> queryAccount(String nickname) throws Exception {
@@ -193,10 +195,7 @@ public class TigUsersServiceImpl implements TigUsersService {
     TigUsersExample example = new TigUsersExample();
     example.createCriteria().andUserIdLike("%" + nickname + "%");
     List<TigUsers> tigUserses = tigUsersMapper.selectByExample(example);
-    List<Long> ids = new ArrayList<>();
-    for (TigUsers pairs : tigUserses) {
-      ids.add(pairs.getUid());
-    }
+    List<Long> ids = tigUserses.stream().map(TigUsers::getUid).collect(Collectors.toList());
     List<TigPairs> uids = tigPairsCustomMapper.queryTigPairsListByUidAndRoster(ids);
     for (TigPairs pairs : uids) {
       String pval = pairs.getPval();
@@ -205,11 +204,9 @@ public class TigUsersServiceImpl implements TigUsersService {
       Gson gson = new Gson();
       vCard vCard = gson.fromJson(vCardObject.toString(), vCard.class);
       Account account = new Account();
-      for (TigUsers user : tigUserses) {
-        if (Objects.equals(pairs.getUid(), user.getUid())) {
-          account.setUserId(user.getUserId());
-        }
-      }
+      tigUserses.stream()
+          .filter(user -> Objects.equals(pairs.getUid(), user.getUid()))
+          .forEach(user -> account.setUserId(user.getUserId()));
       account.setSex(vCard.getSEX() != null && vCard.getSEX().equals("女"));
       account.setNid(pairs.getNid());
       account.setUid(pairs.getUid());
