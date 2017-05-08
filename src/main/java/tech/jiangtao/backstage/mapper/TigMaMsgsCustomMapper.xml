@@ -2,11 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="tech.jiangtao.backstage.mapper.TigMaMsgsCustomMapper">
+
+  <!--查询单聊消息-->
   <select id="queryChatHistory" parameterType="map" resultType="tigMaMsgsWithBLOBs">
     SELECT DISTINCT msg_id, owner_id, buddy_id, ts, direction
 	, TYPE, body, msg
 FROM tig_ma_msgs msg, tig_ma_jids jids
-WHERE owner_id = (
+WHERE ts>=#{timestamp}
+  AND owner_id = (
 		SELECT jid_id
 		FROM tig_ma_jids
 		WHERE jid = #{userId}
@@ -28,4 +31,11 @@ WHERE owner_id = (
 		)
 LIMIT #{offset}, #{limit}
   </select>
+  <!--查询群聊消息-->
+  <select id="queryGroupChatHistory" parameterType="map" resultType="tigGroupMessage">
+SELECT *
+	FROM tig_group_message
+	WHERE group_id = #{groupId} AND timestamp>#{timestamp}
+LIMIT #{offset}, #{limit}
+	</select>
 </mapper>

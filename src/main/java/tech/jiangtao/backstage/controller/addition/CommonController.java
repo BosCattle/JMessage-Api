@@ -31,8 +31,16 @@ public class CommonController {
   @Autowired
   private TigCommonService tigCommonService;
 
+  /**
+   * 获取单聊历史
+   * @param userId
+   * @param otherSideId
+   * @param page
+   * @return
+   * @throws Exception
+   */
   @RequestMapping(value = "/queryChatHistory", method = RequestMethod.POST)
-  @ApiOperation(value = "根据用户userId获取聊天历史", httpMethod = "POST", response = Friends.class,
+  @ApiOperation(value = "根据用户userId获取聊天历史", httpMethod = "POST", response = MessageRealm.class,
       responseContainer = "List", notes = "根据用户userId获取聊天历史")
   public @ResponseBody List<MessageRealm> queryChatMessage(
       @ApiParam(required = true, name = "userId", value = "用户userId") @RequestParam("userId")
@@ -40,8 +48,34 @@ public class CommonController {
       @ApiParam(required = true, name = "otherSideId", value = "对方的jid，群聊即填写群聊的jid")
       @RequestParam("otherSideId") String otherSideId,
       @ApiParam(required = true, name = "page", value = "页数，从0开始")
+      @RequestParam("page") int page,
+      @ApiParam(required = true, name = "timestamp", value = "时间戳，从什么时间戳开始查询")
+      @RequestParam("timestamp") long timestamp)
+      throws Exception {
+    return tigCommonService.queryChatHistory(userId, otherSideId, page,timestamp);
+  }
+
+  /**
+   * 获取群聊历史
+   * @param userId
+   * @param groupId
+   * @param page
+   * @return
+   * @throws Exception
+   */
+  @RequestMapping(value = "/queryGroupChatHistory", method = RequestMethod.POST)
+  @ApiOperation(value = "根据用户userId和groupId获取群聊历史", httpMethod = "POST", response = MessageRealm.class,
+      responseContainer = "List", notes = "根据用户userId和groupId获取群聊历史")
+  public @ResponseBody List<MessageRealm> queryGroupChatHistory(
+      @ApiParam(required = true, name = "userId", value = "用户userId") @RequestParam("userId")
+          String userId,
+      @ApiParam(required = true, name = "groupId", value = "群聊groupId")
+      @RequestParam("groupId") String groupId,
+      @ApiParam(required = true, name = "page", value = "页数，从0开始")
       @RequestParam("page") int page)
       throws Exception {
-    return tigCommonService.queryChatHistory(userId, otherSideId, page);
+    return tigCommonService.queryGroupChatHistory(userId, groupId, page);
   }
+
+
 }
