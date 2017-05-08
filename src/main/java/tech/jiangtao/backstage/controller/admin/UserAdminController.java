@@ -18,7 +18,6 @@ import tech.jiangtao.backstage.model.json.User;
  * @version: 0.0.1 </br>
  **/
 @Controller
-@ApiIgnore
 public class UserAdminController {
 
   @RequestMapping(value = "/batchAddUser",method = RequestMethod.POST)
@@ -30,5 +29,10 @@ public class UserAdminController {
   public String login(Model model,User user) {
     model.addAttribute("user",user);
     return "login";
+  }
+
+  @RequestMapping(value = "/",method = RequestMethod.GET)
+  public String index(Model model) {
+    return "index";
   }
 }

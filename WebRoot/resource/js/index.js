@@ -1,3 +1,6 @@
+/**
+ * 首页
+ */
 var bosh_service = "ws://localhost:5290/bosh";
 var jid = "";
 var connected = false;

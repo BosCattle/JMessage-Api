@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="basePath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
     <title>JMessage后台管理</title>
@@ -7,10 +8,9 @@
     <meta http-equiv="Content-Language" content="zh-CN"/>
     <meta name="Author" content="Kevin"/>
     <meta name="keywords" content="JMessage"/>
-    <link rel="Shortcut Icon" href="static/ico/favicon.ico"/>
-    <link type="text/css" rel="stylesheet" href="static/css/bootstrap.css"/>
-    <link type="text/css" rel="stylesheet" href="static/css/flat-ui.css"/>
-    <link type="text/css" rel="stylesheet" href="resource/css/base.css"/>
+    <link type="text/css" rel="stylesheet" href="${basePath}/static/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="${basePath}/static/css/flat-ui.css"/>
+    <link type="text/css" rel="stylesheet" href="${basePath}/resource/css/base.css"/>
     <style type="text/css">
         #div_login{
             /*position: absolute;*/
@@ -37,14 +37,14 @@
             <label class="login-field-icon fui-lock" for="login-pass"></label>
         </div>
 
-        <a class="btn btn-primary btn-lg btn-block" href="#" id="login_button">登录</a>
+        <a class="btn btn-primary btn-lg btn-block" href="${basePath}/" id="login_button">登录</a>
         <a class="login-link" href="#">忘记密码</a>
     </div>
 </div>
 </body>
-<script type="text/javascript" src="static/js/jquery.js"></script>
-<script type="text/javascript" src="static/js/bootstrap.js"></script>
-<script type="text/javascript" src="static/js/flat-ui.js"></script>
-<script type="text/javascript" src="static/js/strophe.js"></script>
-<script type="text/javascript" src="resource/js/login.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/jquery.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/bootstrap.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/flat-ui.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/strophe.js"></script>
+<script type="text/javascript" src="${basePath}/resource/js/login.js"></script>
 </html>
